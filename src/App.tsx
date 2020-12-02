@@ -34,21 +34,21 @@ function Hook() {
 }
 
 interface Marker {
-  name: string,
+  id: string,
   position: [number, number]
 }
 
 const markerList: Marker[] = [
   {
-    name: 'Marker 1',
+    id: '1',
     position: [54, 70]
   },
   {
-    name: 'Marker 2',
+    id: '2',
     position: [65, 35]
   },
   {
-    name: 'Cool Marker',
+    id: '3',
     position: [30, 70]
   }
 ]
@@ -57,7 +57,7 @@ const markerList: Marker[] = [
 //                      Draggable Marker Helpers                   //
 // --------------------------------------------------------------- //
 
-const DraggableMarker = ({ name, defaultPosition }: any) => {
+const DraggableMarker = ({ id, defaultPosition }: any) => {
   // Adapted from: https://react-leaflet.js.org/docs/example-draggable-marker
   const [position, setPosition] = useState(defaultPosition)
   const markerRef = useRef(null)
@@ -69,7 +69,7 @@ const DraggableMarker = ({ name, defaultPosition }: any) => {
         if (marker != null) {
           const newPosition = [Math.round(marker.getLatLng().lat), Math.round(marker.getLatLng().lng)] as [number, number];
           setPosition(newPosition)
-          updateMarkerPosition(name, newPosition);
+          updateMarkerPosition(id, newPosition);
         }
       },
     }),
@@ -88,14 +88,14 @@ const DraggableMarker = ({ name, defaultPosition }: any) => {
   )
 }
 
-const updateMarkerPosition = (name: string, newPosition: [number, number]) => {
+const updateMarkerPosition = (id: string, newPosition: [number, number]) => {
   for (let marker of markerList) {
-    if (marker.name == name) {
+    if (marker.id == id) {
       marker.position = newPosition;
       return;
     }
   }
-  console.warn('No marker found with name ' + name + '.')
+  console.warn('No marker found with id ' + id + '.')
 }
 
 
@@ -110,9 +110,9 @@ const App = () => {
       <ImageOverlay bounds={imgBounds} url="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg" />
       {markerList.map(markerData => (
         <DraggableMarker
-          name={markerData.name}
+          id={markerData.id}
           defaultPosition={markerData.position}
-          key={markerData.name}
+          key={markerData.id}
         />
       ))}
     </MapContainer>
