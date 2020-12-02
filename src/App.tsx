@@ -23,6 +23,15 @@ function Hook() {
   return null
 }
 
+// --------------------------------------------------------------- //
+//                           Placeholder Data                      //
+// --------------------------------------------------------------- //
+/*
+  Info like the list of all markers and the currently active marker
+  should eventually live in a highler level of state. Ultimately
+  this list should stay in sync with one that lives in a DB.
+*/
+
 interface Marker {
   id: string,
   position: [number, number]
@@ -46,6 +55,8 @@ const markerList: Marker[] = [
 ]
 
 const updateMarkerPosition = (id: string, newPosition: [number, number]) => {
+  // A callback for updating the markerList's "state". Should be replaced
+  // when proper state management is implemented.
   for (let marker of markerList) {
     if (marker.id == id) {
       marker.position = newPosition;
@@ -55,6 +66,12 @@ const updateMarkerPosition = (id: string, newPosition: [number, number]) => {
   console.warn('No marker found with id ' + id + '.')
 }
 
+// --------------------------------------------------------------- //
+//                       Styled Components                         //
+// --------------------------------------------------------------- //
+
+// We have to interact with leaflet's icons via classes -- these
+// let us changes appearances for active/inactive icons
 const StyleContainer = styled.div`
   .leaflet-marker-icon {
     filter: saturate(150%);
