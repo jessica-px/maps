@@ -16,8 +16,6 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 // the aspect ratio should be the same as original size
 const imgBounds = [[0,0], [500,375]] as any;
 
-// the react-leaflet library can't load the default marker images on its own,
-// so we have to do that setup ourselves. But this is essentially still the default marker.
 let leafletIcon = L.icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
@@ -44,9 +42,14 @@ const App = () => {
     <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px" }}>
       <Hook />
       <ImageOverlay bounds={imgBounds} url="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg" />
-      <Marker position={[20, 20]} icon={leafletIcon}>
+      <Marker position={[54, 70]} icon={leafletIcon}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          Marker 1
+        </Popup>
+      </Marker>
+      <Marker position={[65, 35]} icon={leafletIcon}>
+        <Popup>
+          Marker 2
         </Popup>
       </Marker>
     </MapContainer>
