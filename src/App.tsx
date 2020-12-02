@@ -67,7 +67,7 @@ const DraggableMarker = ({ id, defaultPosition }: any) => {
       dragend() {
         const marker = markerRef.current as any;
         if (marker != null) {
-          const newPosition = [Math.round(marker.getLatLng().lat), Math.round(marker.getLatLng().lng)] as [number, number];
+          const newPosition = [marker.getLatLng().lat, marker.getLatLng().lng] as [number, number];
           setPosition(newPosition)
           updateMarkerPosition(id, newPosition);
         }
@@ -105,7 +105,7 @@ const updateMarkerPosition = (id: string, newPosition: [number, number]) => {
 
 const App = () => {
   return (
-    <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px" }}>
+    <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px", marginLeft: "400px"}}>
       <Hook />
       <ImageOverlay bounds={imgBounds} url="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg" />
       {markerList.map(markerData => (
