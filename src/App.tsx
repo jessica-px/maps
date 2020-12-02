@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import { Map } from './Map';
 
@@ -33,6 +33,30 @@ const markerList: Marker[] = [
   }
 ]
 
+interface roomKey {
+  id: string,
+  name: string,
+  description: string
+}
+
+const roomList = [
+  {
+    id: '1',
+    name: 'Wolf Den',
+    description: 'Five large wolves are sleeping in this room. If awoken, they will attack.'
+  },
+  {
+    id: '2',
+    name: 'Storage Room',
+    description: 'This room is filled with crates and barrels. Searching them will only reveal rotting grain.'
+  },
+  {
+    id: '3',
+    name: 'Skeleton Room',
+    description: 'Three dusty skeletons are strewn across this room. If the magic altar in Room 10 was activated, they will awaken and wander the halls.'
+  }
+]
+
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
 // --------------------------------------------------------------- //
@@ -58,13 +82,25 @@ const ContentColumn = styled.div`
 // --------------------------------------------------------------- //
 
 const App = () => {
+  const [activeRoomId, setActiveRoomId] = useState('1');
+  const activeRoom = roomList.filter(room => room.id === activeRoomId)[0];
+
   return (
     <PageLayout>
-      <SidebarColumn>Hello World</SidebarColumn>
-      <ContentColumn>Greetings</ContentColumn>
+      <SidebarColumn>
+        {roomList.map(room => (
+          <p>{room.name}</p>
+        ))}
+      </SidebarColumn>
+      <ContentColumn>
+        <h1>{activeRoom.name}</h1>
+        <p>{activeRoom.description}</p>
+      </ContentColumn>
       <Map
         imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
         markerList={markerList}
+        activeRoomId={activeRoomId}
+        setActiveRoomId={setActiveRoomId}
       />
     </PageLayout>
 

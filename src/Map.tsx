@@ -56,11 +56,12 @@ interface Marker {
 
 interface MapProps {
   imgUrl: string,
-  markerList: Marker[]
+  markerList: Marker[],
+  activeRoomId: any,
+  setActiveRoomId: any
 }
 
-export const Map = ({imgUrl, markerList}: MapProps) => {
-  const [ activeMarkerId, setActiveMarkerId ] = useState('1')
+export const Map = ({imgUrl, markerList, activeRoomId, setActiveRoomId}: MapProps) => {
 
   return (
     <StyleContainer>
@@ -71,8 +72,8 @@ export const Map = ({imgUrl, markerList}: MapProps) => {
           <DraggableMarker
             markerData={markerData}
             key={markerData.id}
-            active={activeMarkerId === markerData.id}
-            setActiveMarkerId={setActiveMarkerId}
+            active={activeRoomId === markerData.id}
+            setActiveMarkerId={setActiveRoomId}
           />
         ))}
       </MapContainer>
