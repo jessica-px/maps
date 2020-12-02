@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import { DraggableMarker } from './DraggableMarker'
 
@@ -36,8 +36,6 @@ interface Marker {
   id: string,
   position: [number, number]
 }
-
-const activeMarker = '1';
 
 const markerList: Marker[] = [
   {
@@ -86,6 +84,8 @@ const StyleContainer = styled.div`
 // --------------------------------------------------------------- //
 
 const App = () => {
+  const [ activeMarkerId, setActiveMarkerId ] = useState('1')
+
   return (
     <StyleContainer>
       <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px" }}>
@@ -96,7 +96,8 @@ const App = () => {
             markerData={markerData}
             key={markerData.id}
             updateMarkerPosition={updateMarkerPosition}
-            active={activeMarker === markerData.id}
+            active={activeMarkerId === markerData.id}
+            setActiveMarkerId={setActiveMarkerId}
           />
         ))}
       </MapContainer>

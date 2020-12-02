@@ -35,7 +35,7 @@ const inactiveLeafletIcon = L.icon({
   marker.
 */
 
-export const DraggableMarker = ({ markerData, updateMarkerPosition, active }: any) => {
+export const DraggableMarker = ({ markerData, updateMarkerPosition, setActiveMarkerId, active }: any) => {
   // Adapted from: https://react-leaflet.js.org/docs/example-draggable-marker
   const [position, setPosition] = useState(markerData.position)
   const markerRef = useRef(null)
@@ -50,6 +50,9 @@ export const DraggableMarker = ({ markerData, updateMarkerPosition, active }: an
           updateMarkerPosition(markerData.id, newPosition);
         }
       },
+      click() {
+        setActiveMarkerId(markerData.id);
+      }
     }),
     [],
   )
