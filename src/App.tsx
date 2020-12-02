@@ -34,15 +34,40 @@ const markerList: Marker[] = [
 ]
 
 // --------------------------------------------------------------- //
+//                       Styled Components                         //
+// --------------------------------------------------------------- //
+
+const PageLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const SidebarColumn = styled.div`
+  background-color: lightgray;
+  width: 250px;
+`
+
+const ContentColumn = styled.div`
+  background-color: lightpink;
+  min-width: 400px;
+  flex: 2;
+`
+
+// --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
 
 const App = () => {
   return (
-    <Map
-      imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
-      markerList={markerList}
-    />
+    <PageLayout>
+      <SidebarColumn>Hello World</SidebarColumn>
+      <ContentColumn>Greetings</ContentColumn>
+      <Map
+        imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
+        markerList={markerList}
+      />
+    </PageLayout>
+
   );
 }
 
