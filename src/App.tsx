@@ -20,7 +20,9 @@ const imgBounds = [[0,0], [500,375]] as any;
 // so we have to do that setup ourselves. But this is essentially still the default marker.
 let leafletIcon = L.icon({
   iconUrl: markerIcon,
-  shadowUrl: markerShadow
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12,41]
 })
 
 // This allows us to hook the leaflet "map" contained within <MapContainer />
