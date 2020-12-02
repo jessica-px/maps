@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import { MapContainer, Marker, Popup, ImageOverlay, useMap } from 'react-leaflet';
+import { MapContainer, Marker, Popup, ImageOverlay, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
@@ -33,6 +33,22 @@ function Hook() {
   return null
 }
 
+interface Marker {
+  name: string,
+  position: [number, number]
+}
+
+const markerList: Marker[] = [
+  {
+    name: 'Marker 1',
+    position: [54, 70]
+  },
+  {
+    name: 'Marker 2',
+    position: [65, 35]
+  }
+]
+
 // --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
@@ -42,16 +58,11 @@ const App = () => {
     <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px" }}>
       <Hook />
       <ImageOverlay bounds={imgBounds} url="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg" />
-      <Marker position={[54, 70]} icon={leafletIcon}>
-        <Popup>
-          Marker 1
-        </Popup>
-      </Marker>
-      <Marker position={[65, 35]} icon={leafletIcon}>
-        <Popup>
-          Marker 2
-        </Popup>
-      </Marker>
+      {markerList.map(markerData => (
+        <Marker position={markerData.position} icon={leafletIcon} key={markerData.name}>
+          <Popup>{markerData.name}</Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 }
