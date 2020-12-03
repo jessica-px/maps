@@ -110,6 +110,17 @@ const reducer = (state: MapState, action: Action): MapState => {
         ...state,
         activeRoomId: action.payload
       };
+    case "UPDATE_ROOM_DESCRIPTION":
+      console.log('Dispatch')
+      return {
+        ...state,
+        roomList: roomList.map(room => {
+          if (room.id === action.payload.id) {
+            room.description = action.payload.description
+          }
+          return room;
+        })
+      }
     // case "DEL_CONTACT":
     //   return {
     //     contacts: state.contacts.filter(
