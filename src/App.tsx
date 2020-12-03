@@ -59,14 +59,6 @@ const SidebarColumn = styled.div`
   padding-left: 50px;
 `
 
-const ContentColumn = styled.div`
-  min-width: 400px;
-  flex: 2;
-  padding: 0 20px;
-  max-height: 100vh;
-  margin-bottom: 55px;
-  overflow: auto;
-`
 
 const SidebarItem = styled.div<any>`
   padding: 10px 0;
@@ -111,8 +103,18 @@ const Sidebar = () => {
 //                         Content Component                       //
 // --------------------------------------------------------------- //
 
+const ContentColumn = styled.div`
+  min-width: 400px;
+  flex: 2;
+  padding: 0 20px;
+  max-height: 100vh;
+  margin-bottom: 55px;
+  overflow: auto;
+  box-sizing: border-box;
+`
+
 const StyledTextArea = styled.textarea`
-  width: 95%;
+  width: 96%;
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -155,7 +157,7 @@ const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 5px;
+  padding: 5px 0;
 `
 
 interface MenuBarProps {
