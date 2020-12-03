@@ -2,7 +2,7 @@ import React, { useState, useContext, ChangeEvent } from 'react';
 import styled, { css } from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { Map } from './Map';
-import { MapContextProvider, MapContext } from './MapContextProvider';
+import { MapContextProvider, MapContext, getRoomById } from './MapContextProvider';
 
 import "leaflet/dist/leaflet.css";
 
@@ -133,7 +133,7 @@ const EditButton = styled.div`
 
 const EditMarkdownTextArea = () => {
   const [ state, dispatch ] = useContext(MapContext);
-  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
+  const activeRoom = getRoomById(state.roomList, state.activeRoomId);
 
   const updateRoomDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     console.log('dispatch?')
@@ -181,7 +181,8 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
 const ContentArea = () => {
   const [ editModeEnabled, setEditModeEnabled ] = useState(false);
   const [ state, dispatch ] = useContext(MapContext);
-  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
+
+  const activeRoom = getRoomById(state.roomList, state.activeRoomId);
 
   return (
     <ContentColumn>
