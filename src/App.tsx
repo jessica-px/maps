@@ -7,12 +7,13 @@ import { MapContextProvider, MapContext } from './MapContextProvider';
 import "leaflet/dist/leaflet.css";
 
 // --------------------------------------------------------------- //
-//                           Placeholder Data                      //
+//                           Custom Markdown                       //
 // --------------------------------------------------------------- //
 /*
-  Info like the list of all markers and the currently active marker
-  should eventually live in a highler level of state. Ultimately
-  this list should stay in sync with one that lives in a DB.
+  Styling and rendering setup for customizing the markdown links:
+  now the [link](url) syntax expects the "url" to instead be a room
+  id. Clicking the link sets that room to active.
+  This doesn't really belong in this file and should be moved out.
 */
 
 
