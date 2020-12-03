@@ -126,6 +126,11 @@ const reducer = (state: MapState, action: Action): MapState => {
         roomList: addRoom(state),
         markerList: addMarker(state)
       };
+    case 'UPDATE_ROOM_NAME':
+      return {
+        ...state,
+        roomList: renameRoom(state, action.payload.roomId, action.payload.newName)
+      };
     // case "DEL_CONTACT":
     //   return {
     //     contacts: state.contacts.filter(
@@ -173,6 +178,18 @@ const addMarker = (state: MapState): Marker[] => {
   newMarkerList.push(newMarker);
   return newMarkerList;
 };
+
+const renameRoom = (state: MapState, roomId: string, newName: string): Room[] => {
+  // Returns a Room[] wherein the room with the given ID is updated with the new name
+  const newRoomList = state.roomList.map((room) => {
+    if (room.id === roomId) {
+      return { ...room, name: newName };
+    }
+    return room;
+  })
+
+  return newRoomList;
+}
 
 // --------------------------------------------------------------- //
 //                           State Helpers                         //
