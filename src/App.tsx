@@ -122,16 +122,11 @@ const StyledTextArea = styled.textarea`
 `
 
 const EditButton = styled.div`
-  background-color: royalblue;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 20px;
   &:hover {
+    color: royalblue;
     cursor: pointer;
+    text-decoration: underline;
   }
-  max-width: 50px;
 `
 
 const EditMarkdownTextArea = () => {
