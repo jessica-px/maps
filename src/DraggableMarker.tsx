@@ -74,6 +74,7 @@ export const DraggableMarker = ({
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
+      zIndexOffset={active ? 1000 : 0}
     >
       <Tooltip
         direction="top"
