@@ -22,7 +22,7 @@ export interface MapState {
   markerList: Marker[]
 }
 
-const markerList: Marker[] = [
+const initialMarkerList: Marker[] = [
   {
     id: '1',
     position: [54, 70]
@@ -35,9 +35,9 @@ const markerList: Marker[] = [
     id: '3',
     position: [30, 70]
   }
-]
+];
 
-const roomList = [
+const initialRoomList = [
   {
     id: '1',
     name: 'Barracks',
@@ -71,7 +71,7 @@ const roomList = [
   },
   {
     id: '3',
-    name: `Officer's Quarters`,
+    name: 'Officer\'s Quarters',
     description: `## Description
     \nA wooden table against the north wall is set with an earthenware jug of cider and a wooden cup. A wooden chair stands by the table. A bed stands against the west wall with a brass-bound, wooden chest against its foot.
     \n## Creatures
@@ -84,13 +84,13 @@ const roomList = [
     \n South is a passage leading to the Armory.
     `
   }
-]
+];
 
 export const initialState = {
-  roomList: roomList,
-  markerList: markerList,
+  roomList: initialRoomList,
+  markerList: initialMarkerList,
   activeRoomId: '1'
-}
+};
 
 // --------------------------------------------------------------- //
 //                              Reducer                            //
@@ -100,27 +100,26 @@ export const initialState = {
 
 interface Action {
   type: string,
-  payload: any
+  payload: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 const reducer = (state: MapState, action: Action): MapState => {
   switch (action.type) {
-    case "Set_ACTIVE_ROOM_ID":
+    case 'Set_ACTIVE_ROOM_ID':
       return {
         ...state,
         activeRoomId: action.payload
-      };
-    case "UPDATE_ROOM_DESCRIPTION":
-      console.log('Dispatch')
+    };
+    case 'UPDATE_ROOM_DESCRIPTION':
       return {
         ...state,
-        roomList: roomList.map(room => {
+        roomList: state.roomList.map((room) => {
           if (room.id === action.payload.id) {
-            room.description = action.payload.description
+            return { ...room, description: action.payload.description };
           }
           return room;
         })
-      }
+      };
     // case "DEL_CONTACT":
     //   return {
     //     contacts: state.contacts.filter(
@@ -145,13 +144,13 @@ const reducer = (state: MapState, action: Action): MapState => {
 // --------------------------------------------------------------- //
 
 export const getRoomById = (roomList: Room[], id: string): Room => {
-  for (let room of roomList) {
+  for (const room of roomList) {
     if (room.id === id) {
       return room;
     }
   }
-  throw 'No room found with id: ' + id
-}
+  throw new Error(`No room found with id: ${id}`);
+};
 
 // --------------------------------------------------------------- //
 //                        Context and Provider                     //
@@ -159,10 +158,10 @@ export const getRoomById = (roomList: Room[], id: string): Room => {
 
 type ContextType = [
   MapState,
-  React.Dispatch<any>
-]
+  React.Dispatch<Action>
+];
 
-export const MapContext = React.createContext<ContextType>([initialState, () => {return null}]);
+export const MapContext = React.createContext<ContextType>([initialState, () => null]);
 
 interface MapContextProviderProps {
   children: React.ReactElement

@@ -1,6 +1,6 @@
 import React, { useState, useContext, ChangeEvent } from 'react';
-import styled from 'styled-components'
-import ReactMarkdown from 'react-markdown'
+import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 import { MapContext, getRoomById } from './MapContextProvider';
 
 // --------------------------------------------------------------- //
@@ -15,7 +15,7 @@ const ContentColumn = styled.div`
   margin-bottom: 55px;
   overflow: auto;
   box-sizing: border-box;
-`
+`;
 
 const StyledTextArea = styled.textarea`
   width: 96%;
@@ -25,7 +25,7 @@ const StyledTextArea = styled.textarea`
     sans-serif;
   padding: 5px;
   resize: none;
-`
+`;
 
 const EditButton = styled.div`
   &:hover {
@@ -33,14 +33,14 @@ const EditButton = styled.div`
     cursor: pointer;
     text-decoration: underline;
   }
-`
+`;
 
 const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 0;
-`
+`;
 // --------------------------------------------------------------- //
 //                           Custom Markdown                       //
 // --------------------------------------------------------------- //
@@ -51,7 +51,6 @@ const StyledMenu = styled.div`
   This doesn't really belong in this file and should be moved out.
 */
 
-
 const MarkdownLink = styled.span`
   font-weight: bold;
   color: royalblue;
@@ -59,9 +58,14 @@ const MarkdownLink = styled.span`
     cursor: pointer;
     text-decoration: underline;
   }
-`
+`;
 
-const InternalLinkRenderer = ({href, children}: any) => {
+interface InternalLinkRendererProps {
+  href: string,
+  children: React.ReactElement[]
+}
+
+const InternalLinkRenderer = ({ href, children }: InternalLinkRendererProps) => {
   const linkId = href;
   const linkText = children[0].props.value;
   const [state, dispatch] = useContext(MapContext);
@@ -70,65 +74,60 @@ const InternalLinkRenderer = ({href, children}: any) => {
     dispatch({
       type: 'Set_ACTIVE_ROOM_ID',
       payload: newId
-    })
-  }
+    });
+  };
 
   return (
     <MarkdownLink onClick={() => setActiveRoomId(linkId)}>{linkText}</MarkdownLink>
   );
-}
+};
 
 // --------------------------------------------------------------- //
 //                           Sub-Components                        //
 // --------------------------------------------------------------- //
 
 const EditMarkdownTextArea = () => {
-  const [ state, dispatch ] = useContext(MapContext);
+  const [state, dispatch] = useContext(MapContext);
   const activeRoom = getRoomById(state.roomList, state.activeRoomId);
 
   const updateRoomDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('dispatch?')
-    console.log(state.activeRoomId)
     dispatch({
       type: 'UPDATE_ROOM_DESCRIPTION',
-      payload: {id: state.activeRoomId, description: event.target.value}
-    })
-    console.log(state.activeRoomId)
-  }
+      payload: { id: state.activeRoomId, description: event.target.value }
+    });
+  };
 
   return (
     <StyledTextArea
       value={activeRoom.description}
       onChange={updateRoomDescription}
     />
-  )
-}
+  );
+};
 
 interface MenuBarProps {
   editModeEnabled: boolean,
   setEditModeEnabled: (x: boolean) => void
 }
 
-const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
-  return (
-    <StyledMenu>
-      <div>Menu Bar</div>
-      <EditButton
-        onClick={() => setEditModeEnabled(!editModeEnabled)}
-      >
-        {editModeEnabled ? 'Save' : 'Edit'}
-      </EditButton>
-    </StyledMenu>
-  )
-}
+const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => (
+  <StyledMenu>
+    <div>Menu Bar</div>
+    <EditButton
+      onClick={() => setEditModeEnabled(!editModeEnabled)}
+    >
+      {editModeEnabled ? 'Save' : 'Edit'}
+    </EditButton>
+  </StyledMenu>
+);
 
 // --------------------------------------------------------------- //
 //                           Main Component                        //
 // --------------------------------------------------------------- //
 
 export const ContentArea = () => {
-  const [ editModeEnabled, setEditModeEnabled ] = useState(false);
-  const [ state, dispatch ] = useContext(MapContext);
+  const [editModeEnabled, setEditModeEnabled] = useState(false);
+  const [state] = useContext(MapContext);
 
   const activeRoom = getRoomById(state.roomList, state.activeRoomId);
 
@@ -141,8 +140,9 @@ export const ContentArea = () => {
       <h1>{state.activeRoomId}. {activeRoom.name}</h1>
       {editModeEnabled
         ? <EditMarkdownTextArea />
-        : <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
-      }
+        : <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
+          {activeRoom.description}
+          </ReactMarkdown>}
     </ContentColumn>
-  )
-}
+  );
+};
