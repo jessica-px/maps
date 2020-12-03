@@ -12,15 +12,16 @@ const activeLeafletIcon = L.icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
   iconSize: [25, 41],
-  iconAnchor: [12,41],
+  iconAnchor: [12,20],
   className: ''
 })
 
 const inactiveLeafletIcon = L.icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12,41],
+  iconSize: [20, 36],
+  iconAnchor: [10, 15],
+  shadowAnchor: [12, 20],
   className: 'leaflet-marker-icon-inactive'
 })
 
