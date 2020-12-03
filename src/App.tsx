@@ -6,19 +6,6 @@ import { MapContextProvider, MapContext } from './MapContextProvider';
 
 import "leaflet/dist/leaflet.css";
 
-
-interface Marker {
-  id: string,
-  position: [number, number]
-}
-
-
-interface roomKey {
-  id: string,
-  name: string,
-  description: string
-}
-
 // --------------------------------------------------------------- //
 //                           Placeholder Data                      //
 // --------------------------------------------------------------- //
