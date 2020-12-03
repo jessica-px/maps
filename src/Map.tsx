@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { DraggableMarker } from './DraggableMarker'
+import { MapContext } from './MapContextProvider';
 
-import { MapContainer, Marker, ImageOverlay, useMap } from 'react-leaflet';
+import { MapContainer, ImageOverlay, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 
 // --------------------------------------------------------------- //
@@ -55,25 +56,30 @@ interface Marker {
 }
 
 interface MapProps {
-  imgUrl: string,
-  markerList: Marker[],
-  activeRoomId: any,
-  setActiveRoomId: any
+  imgUrl: string
 }
 
-export const Map = ({imgUrl, markerList, activeRoomId, setActiveRoomId}: MapProps) => {
+export const Map = ({ imgUrl }: MapProps) => {
+  const [state, dispatch] = useContext(MapContext);
+
+  const setActiveMarkerId = (newId: string): void => {
+    dispatch({
+      type: 'Set_ACTIVE_ROOM_ID',
+      payload: newId
+    })
+  }
 
   return (
     <StyleContainer>
       <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: "600px", width: "600px" }}>
         <SetMapBoundsHook />
         <ImageOverlay bounds={imgBounds} url={imgUrl} />
-        {markerList.map(markerData => (
+        {state.markerList.map(markerData => (
           <DraggableMarker
             markerData={markerData}
             key={markerData.id}
-            active={activeRoomId === markerData.id}
-            setActiveMarkerId={setActiveRoomId}
+            active={state.activeRoomId === markerData.id}
+            setActiveMarkerId={setActiveMarkerId}
           />
         ))}
       </MapContainer>
