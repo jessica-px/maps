@@ -37,6 +37,15 @@ const SidebarItem = styled.div<SidebarItemProps>`
   `}
 `;
 
+const AddNewRoomButton = styled.div`
+  text-align: right;
+  &:hover {
+    color: royalblue;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
 // --------------------------------------------------------------- //
 //                         Sidebar Component                       //
 // --------------------------------------------------------------- //
@@ -51,8 +60,16 @@ const Sidebar = () => {
     });
   };
 
+  const addRoom = () => {
+    dispatch({
+      type: 'ADD_ROOM',
+      payload: null
+    });
+  };
+
   return (
     <SidebarColumn>
+      <AddNewRoomButton onClick={() => addRoom()}>+ Add Location</AddNewRoomButton>
       {state.roomList.map((room, i) => (
         <SidebarItem
           key={room.id}
