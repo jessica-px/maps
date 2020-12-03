@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, ChangeEvent } from 'react';
 import styled, { css } from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { Map } from './Map';
@@ -108,6 +108,75 @@ const Sidebar = () => {
 }
 
 // --------------------------------------------------------------- //
+//                         Content Component                       //
+// --------------------------------------------------------------- //
+
+const StyledTextArea = styled.textarea`
+  width: 95%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  padding: 5px;
+  resize: none;
+`
+
+const EditButton = styled.div`
+  background-color: royalblue;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  &:hover {
+    cursor: pointer;
+  }
+  max-width: 50px;
+`
+
+const EditMarkdownTextArea = () => {
+  const [ state, dispatch ] = useContext(MapContext);
+  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
+
+  const updateRoomDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log('dispatch?')
+    console.log(state.activeRoomId)
+    dispatch({
+      type: 'UPDATE_ROOM_DESCRIPTION',
+      payload: {id: state.activeRoomId, description: event.target.value}
+    })
+    console.log(state.activeRoomId)
+  }
+
+  return (
+    <StyledTextArea
+      value={activeRoom.description}
+      onChange={updateRoomDescription}
+    />
+  )
+}
+
+const ContentArea = () => {
+  const [ editModeEnabled, setEditModeEnabled ] = useState(false);
+  const [ state, dispatch ] = useContext(MapContext);
+  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
+
+  return (
+    <ContentColumn>
+      <h1>{state.activeRoomId}. {activeRoom.name}</h1>
+      <EditButton
+        onClick={() => setEditModeEnabled(!editModeEnabled)}
+      >
+        {editModeEnabled ? 'Save' : 'Edit'}
+      </EditButton>
+      {editModeEnabled
+        ? <EditMarkdownTextArea />
+        : <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
+      }
+    </ContentColumn>
+)}
+
+// --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
 
@@ -118,16 +187,10 @@ const AppWrapper = () => (
 )
 
 const App = () => {
-  const [ state, dispatch ] = useContext(MapContext);
-  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
-
   return (
     <PageLayout>
       <Sidebar />
-      <ContentColumn>
-        <h1>{state.activeRoomId}. {activeRoom.name}</h1>
-        <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
-      </ContentColumn>
+      <ContentArea />
       <Map
         imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
       />
