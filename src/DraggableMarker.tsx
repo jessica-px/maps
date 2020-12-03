@@ -1,6 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
+import { Marker as MarkerType } from './MapContextProvider';
 
-import { Marker } from 'react-leaflet';
+import { Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
@@ -36,7 +37,14 @@ const inactiveLeafletIcon = L.icon({
   marker.
 */
 
-export const DraggableMarker = ({ markerData, setActiveMarkerId, active }: any) => {
+interface DraggableMarkerProps {
+  roomName: string,
+  markerData: MarkerType,
+  setActiveMarkerId: (x: string) => void;
+  active: boolean
+}
+
+export const DraggableMarker = ({ roomName, markerData, setActiveMarkerId, active }: DraggableMarkerProps) => {
   // Adapted from: https://react-leaflet.js.org/docs/example-draggable-marker
   const [position, setPosition] = useState(markerData.position)
   const markerRef = useRef(null)
@@ -64,6 +72,14 @@ export const DraggableMarker = ({ markerData, setActiveMarkerId, active }: any) 
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
-    />
+    >
+      <Tooltip
+        direction="top"
+        offset={[0, -22]}
+        opacity={90}
+      >
+        {roomName}
+      </Tooltip>
+    </Marker>
   )
 }

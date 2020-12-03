@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { DraggableMarker } from './DraggableMarker'
-import { MapContext } from './MapContextProvider';
+import { MapContext, getRoomById } from './MapContextProvider';
 
 import { MapContainer, ImageOverlay, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
@@ -76,6 +76,7 @@ export const Map = ({ imgUrl }: MapProps) => {
         <ImageOverlay bounds={imgBounds} url={imgUrl} />
         {state.markerList.map(markerData => (
           <DraggableMarker
+            roomName={getRoomById(state.roomList, markerData.id).name}
             markerData={markerData}
             key={markerData.id}
             active={state.activeRoomId === markerData.id}
