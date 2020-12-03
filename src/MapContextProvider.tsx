@@ -140,6 +140,18 @@ const reducer = (state: MapState, action: Action): MapState => {
   }
 };
 
+// --------------------------------------------------------------- //
+//                           State Helpers                         //
+// --------------------------------------------------------------- //
+
+export const getRoomById = (roomList: Room[], id: string): Room => {
+  for (let room of roomList) {
+    if (room.id === id) {
+      return room;
+    }
+  }
+  throw 'No room found with id: ' + id
+}
 
 // --------------------------------------------------------------- //
 //                        Context and Provider                     //
