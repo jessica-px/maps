@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { Map } from './Map';
+import { MapContextProvider, MapContext } from './MapContextProvider';
 
 import "leaflet/dist/leaflet.css";
+
+
+interface Marker {
+  id: string,
+  position: [number, number]
+}
+
+
+interface roomKey {
+  id: string,
+  name: string,
+  description: string
+}
 
 // --------------------------------------------------------------- //
 //                           Placeholder Data                      //
@@ -14,49 +28,6 @@ import "leaflet/dist/leaflet.css";
   this list should stay in sync with one that lives in a DB.
 */
 
-interface Marker {
-  id: string,
-  position: [number, number]
-}
-
-const markerList: Marker[] = [
-  {
-    id: '1',
-    position: [54, 70]
-  },
-  {
-    id: '2',
-    position: [65, 35]
-  },
-  {
-    id: '3',
-    position: [30, 70]
-  }
-]
-
-interface roomKey {
-  id: string,
-  name: string,
-  description: string
-}
-
-const roomList = [
-  {
-    id: '1',
-    name: 'Wolf Den',
-    description: '## Description  \nSix wolves sleep in a cozy little wolf nest. If awoken, they will attack.  \n## Treasure  \nUnder a secret floorboard is a **Bag of Holding**. Perception DC 12 to notice the board is loose.  \n## Exits  \nThrough the [Eastern Door](1). Up the **ladder** is the attic (Dex Save DC 10 to not fall when its rotting rung gives out!)'
-  },
-  {
-    id: '2',
-    name: 'Storage Room',
-    description: 'This room is filled with crates and barrels. Searching them will only reveal rotting grain.'
-  },
-  {
-    id: '3',
-    name: 'Skeleton Room',
-    description: 'Three dusty skeletons are strewn across this room. If the magic altar in Room 10 was activated, they will awaken and wander the halls.'
-  }
-]
 
 const MarkdownLink = styled.span`
   font-weight: bold;
@@ -70,8 +41,10 @@ const MarkdownLink = styled.span`
 const InternalLinkRenderer = ({href, children}: any) => {
   const linkId = href;
   const linkText = children[0].props.value;
+  const mapContext = useContext(MapContext);
+
   return (
-    <MarkdownLink onClick={() => console.log("Click! Id: " + linkId)}>{linkText}</MarkdownLink>
+    <MarkdownLink onClick={() => console.log(mapContext)}>{linkText}</MarkdownLink>
   );
 }
 
@@ -111,43 +84,56 @@ const SidebarItem = styled.div<any>`
 //                         Sub-Components                          //
 // --------------------------------------------------------------- //
 
-const Sidebar = ({activeRoomId, setActiveRoomId}: any) => (
-  <SidebarColumn>
-    {roomList.map((room, i) => (
-      <SidebarItem
-        active={activeRoomId === room.id}
-        onClick={() => setActiveRoomId(room.id)}
-      >
-        {i+1}. {room.name}
-      </SidebarItem>
-    ))}
-  </SidebarColumn>
-)
+const Sidebar = () => {
+  const [state, dispatch] = useContext(MapContext);
+
+  const setActiveRoomId = (newId: string): void => {
+    dispatch({
+      type: 'Set_ACTIVE_ROOM_ID',
+      payload: newId
+    })
+  }
+
+  return (
+    <SidebarColumn>
+      {state.roomList.map((room, i) => (
+        <SidebarItem
+          active={state.activeRoomId === room.id}
+          onClick={() => setActiveRoomId(room.id)}
+        >
+          {i+1}. {room.name}
+        </SidebarItem>
+      ))}
+    </SidebarColumn>
+  )
+}
 
 // --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
 
+const AppWrapper = () => (
+  <MapContextProvider>
+    <App />
+  </MapContextProvider>
+)
+
 const App = () => {
-  const [activeRoomId, setActiveRoomId] = useState('1');
-  const activeRoom = roomList.filter(room => room.id === activeRoomId)[0];
+  const [ state, dispatch ] = useContext(MapContext);
+  const activeRoom = state.roomList.filter(room => room.id === state.activeRoomId)[0];
 
   return (
     <PageLayout>
-      <Sidebar activeRoomId={activeRoomId} setActiveRoomId={setActiveRoomId} />
+      <Sidebar />
       <ContentColumn>
-        <h1>{activeRoom.name}</h1>
+        <h1>{state.activeRoomId}. {activeRoom.name}</h1>
         <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
       </ContentColumn>
       <Map
         imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
-        markerList={markerList}
-        activeRoomId={activeRoomId}
-        setActiveRoomId={setActiveRoomId}
       />
     </PageLayout>
-
   );
 }
 
-export default App;
+export default AppWrapper;
