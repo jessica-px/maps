@@ -1,7 +1,7 @@
 import React, { useState, useContext, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import { MapContext, getRoomById } from './MapContextProvider';
+import { MapContext, Room, getRoomById } from './MapContextProvider';
 
 // --------------------------------------------------------------- //
 //                              Styles                             //
@@ -121,6 +121,16 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => (
   </StyledMenu>
 );
 
+interface ContentDisplayAreaProps {
+  activeRoom: Room
+}
+
+const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
+  <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
+    {activeRoom.description}
+  </ReactMarkdown>
+);
+
 // --------------------------------------------------------------- //
 //                           Main Component                        //
 // --------------------------------------------------------------- //
@@ -140,9 +150,7 @@ export const ContentArea = () => {
       <h1>{state.activeRoomId}. {activeRoom.name}</h1>
       {editModeEnabled
         ? <EditMarkdownTextArea />
-        : <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
-          {activeRoom.description}
-          </ReactMarkdown>}
+        : <ContentDisplayArea activeRoom={activeRoom} />}
     </ContentColumn>
   );
 };
