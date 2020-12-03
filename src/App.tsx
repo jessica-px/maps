@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Map } from './Map';
 
 import "leaflet/dist/leaflet.css";
@@ -67,15 +67,44 @@ const PageLayout = styled.div`
 `
 
 const SidebarColumn = styled.div`
-  background-color: lightgray;
   width: 250px;
+  padding: 20px;
+  padding-left: 50px;
 `
 
 const ContentColumn = styled.div`
-  background-color: lightpink;
   min-width: 400px;
   flex: 2;
+  padding: 20px;
 `
+
+const SidebarItem = styled.div<any>`
+  padding: 10px 0;
+  &:hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  ${props => props.active && css`
+    font-weight: bold;
+  `}
+`
+
+// --------------------------------------------------------------- //
+//                         Sub-Components                          //
+// --------------------------------------------------------------- //
+
+const Sidebar = ({activeRoomId, setActiveRoomId}: any) => (
+  <SidebarColumn>
+    {roomList.map((room, i) => (
+      <SidebarItem
+        active={activeRoomId === room.id}
+        onClick={() => setActiveRoomId(room.id)}
+      >
+        {i+1}. {room.name}
+      </SidebarItem>
+    ))}
+  </SidebarColumn>
+)
 
 // --------------------------------------------------------------- //
 //                         Main Component                          //
@@ -87,11 +116,7 @@ const App = () => {
 
   return (
     <PageLayout>
-      <SidebarColumn>
-        {roomList.map(room => (
-          <p>{room.name}</p>
-        ))}
-      </SidebarColumn>
+      <Sidebar activeRoomId={activeRoomId} setActiveRoomId={setActiveRoomId} />
       <ContentColumn>
         <h1>{activeRoom.name}</h1>
         <p>{activeRoom.description}</p>
