@@ -156,6 +156,31 @@ const EditMarkdownTextArea = () => {
   )
 }
 
+const StyledMenu = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 5px;
+`
+
+interface MenuBarProps {
+  editModeEnabled: boolean,
+  setEditModeEnabled: (x: boolean) => void
+}
+
+const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
+  return (
+    <StyledMenu>
+      <div>Menu Bar</div>
+      <EditButton
+        onClick={() => setEditModeEnabled(!editModeEnabled)}
+      >
+        {editModeEnabled ? 'Save' : 'Edit'}
+      </EditButton>
+    </StyledMenu>
+  )
+}
+
 const ContentArea = () => {
   const [ editModeEnabled, setEditModeEnabled ] = useState(false);
   const [ state, dispatch ] = useContext(MapContext);
@@ -163,12 +188,11 @@ const ContentArea = () => {
 
   return (
     <ContentColumn>
+      <MenuBar
+        editModeEnabled={editModeEnabled}
+        setEditModeEnabled={setEditModeEnabled}
+      />
       <h1>{state.activeRoomId}. {activeRoom.name}</h1>
-      <EditButton
-        onClick={() => setEditModeEnabled(!editModeEnabled)}
-      >
-        {editModeEnabled ? 'Save' : 'Edit'}
-      </EditButton>
       {editModeEnabled
         ? <EditMarkdownTextArea />
         : <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
