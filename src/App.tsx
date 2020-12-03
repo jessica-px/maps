@@ -44,7 +44,7 @@ const roomList = [
   {
     id: '1',
     name: 'Wolf Den',
-    description: 'Five large wolves are sleeping in this room. If awoken, they will attack.'
+    description: '## Description  \nSix wolves sleep in a cozy little wolf nest. If awoken, they will attack.  \n## Treasure  \nUnder a secret floorboard is a **Bag of Holding**. Perception DC 12 to notice the board is loose.  \n## Exits  \nThrough the [Eastern Door](1). Up the **ladder** is the attic (Dex Save DC 10 to not fall when its rotting rung gives out!)'
   },
   {
     id: '2',
@@ -57,6 +57,23 @@ const roomList = [
     description: 'Three dusty skeletons are strewn across this room. If the magic altar in Room 10 was activated, they will awaken and wander the halls.'
   }
 ]
+
+const MarkdownLink = styled.span`
+  font-weight: bold;
+  color: royalblue;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`
+
+const InternalLinkRenderer = ({href, children}: any) => {
+  const linkId = href;
+  const linkText = children[0].props.value;
+  return (
+    <MarkdownLink onClick={() => console.log("Click! Id: " + linkId)}>{linkText}</MarkdownLink>
+  );
+}
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
