@@ -109,7 +109,7 @@ const reducer = (state: MapState, action: Action): MapState => {
       return {
         ...state,
         activeRoomId: action.payload
-    };
+      };
     case 'UPDATE_ROOM_DESCRIPTION':
       return {
         ...state,
@@ -119,6 +119,12 @@ const reducer = (state: MapState, action: Action): MapState => {
           }
           return room;
         })
+      };
+    case 'ADD_ROOM':
+      return {
+        ...state,
+        roomList: addRoom(state),
+        markerList: addMarker(state)
       };
     // case "DEL_CONTACT":
     //   return {
@@ -137,6 +143,35 @@ const reducer = (state: MapState, action: Action): MapState => {
     default:
       throw new Error();
   }
+};
+
+// --------------------------------------------------------------- //
+//                          State Updaters                         //
+// --------------------------------------------------------------- //
+// Functions for making updates to the state -- should return values
+// for use by reducer, but doesn't directly modify state
+
+const addRoom = (state: MapState): Room[] => {
+  const newRoomId = state.roomList.length + 1;
+  const newRoom = {
+    id: newRoomId.toString(),
+    name: 'New Location',
+    description: '## Description\nClick \'edit\' to customize this text.'
+  };
+  const newRoomList = state.roomList.slice();
+  newRoomList.push(newRoom);
+  return newRoomList;
+};
+
+const addMarker = (state: MapState): Marker[] => {
+  const newMarkerId = state.markerList.length + 1;
+  const newMarker = {
+    id: newMarkerId.toString(),
+    position: [30, 50]
+  } as Marker;
+  const newMarkerList = state.markerList.slice();
+  newMarkerList.push(newMarker);
+  return newMarkerList;
 };
 
 // --------------------------------------------------------------- //
