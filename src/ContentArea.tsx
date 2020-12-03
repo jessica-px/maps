@@ -131,6 +131,15 @@ const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
   </ReactMarkdown>
 );
 
+interface RoomTitleProps {
+  id: string,
+  name: string
+}
+
+const RoomTitle = ({ id, name }: RoomTitleProps) => (
+  <h1>{id}. {name}</h1>
+);
+
 // --------------------------------------------------------------- //
 //                           Main Component                        //
 // --------------------------------------------------------------- //
@@ -147,7 +156,10 @@ export const ContentArea = () => {
         editModeEnabled={editModeEnabled}
         setEditModeEnabled={setEditModeEnabled}
       />
-      <h1>{state.activeRoomId}. {activeRoom.name}</h1>
+      <RoomTitle
+        id={state.activeRoomId}
+        name={activeRoom.name}
+      />
       {editModeEnabled
         ? <EditMarkdownTextArea />
         : <ContentDisplayArea activeRoom={activeRoom} />}
