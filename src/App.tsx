@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components'
+import ReactMarkdown from 'react-markdown'
 import { Map } from './Map';
 
 import "leaflet/dist/leaflet.css";
@@ -119,7 +120,7 @@ const App = () => {
       <Sidebar activeRoomId={activeRoomId} setActiveRoomId={setActiveRoomId} />
       <ContentColumn>
         <h1>{activeRoom.name}</h1>
-        <p>{activeRoom.description}</p>
+        <ReactMarkdown renderers={{ "link":  InternalLinkRenderer }}>{activeRoom.description}</ReactMarkdown>
       </ContentColumn>
       <Map
         imgUrl='https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg'
