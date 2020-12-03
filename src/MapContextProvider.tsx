@@ -141,7 +141,7 @@ const reducer = (state: MapState, action: Action): MapState => {
     //     loading: false
     //   };
     default:
-      throw new Error();
+      throw new Error(`No action found in reducer with type: ${action.type}.`);
   }
 };
 
