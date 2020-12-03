@@ -131,20 +131,6 @@ const reducer = (state: MapState, action: Action): MapState => {
         ...state,
         roomList: renameRoom(state, action.payload.roomId, action.payload.newName)
       };
-    // case "DEL_CONTACT":
-    //   return {
-    //     contacts: state.contacts.filter(
-    //       contact => contact.id !== action.payload
-    //     )
-    //   };
-    // case "START":
-    //   return {
-    //     loading: true
-    //   };
-    // case "COMPLETE":
-    //   return {
-    //     loading: false
-    //   };
     default:
       throw new Error(`No action found in reducer with type: ${action.type}.`);
   }
