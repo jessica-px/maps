@@ -13,16 +13,16 @@ const activeLeafletIcon = L.icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
   iconSize: [25, 41],
-  iconAnchor: [12,20],
+  iconAnchor: [12,41],
   className: ''
 })
 
 const inactiveLeafletIcon = L.icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [20, 36],
-  iconAnchor: [10, 15],
-  shadowAnchor: [12, 20],
+  iconSize: [22, 36],
+  iconAnchor: [10, 36],
+  shadowAnchor: [12, 41],
   className: 'leaflet-marker-icon-inactive'
 })
 
@@ -75,7 +75,7 @@ export const DraggableMarker = ({ roomName, markerData, setActiveMarkerId, activ
     >
       <Tooltip
         direction="top"
-        offset={[0, -22]}
+        offset={[0, -35]}
         opacity={90}
       >
         {roomName}
