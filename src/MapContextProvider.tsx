@@ -41,7 +41,7 @@ const roomList = [
   {
     id: '1',
     name: 'Wolf Den',
-    description: '## Description  \nSix wolves sleep in a cozy little wolf nest. If awoken, they will attack.  \n## Treasure  \nUnder a secret floorboard is a **Bag of Holding**. Perception DC 12 to notice the board is loose.  \n## Exits  \nThrough the eastern door is the [Storage Room](1). Up the **ladder** is the attic (Dex Save DC 10 to not fall when its rotting rung gives out!)'
+    description: '## Description  \nSix wolves sleep in a cozy little wolf nest. If awoken, they will attack.  \n## Treasure  \nUnder a secret floorboard is a **Bag of Holding**. Perception DC 12 to notice the board is loose.  \n## Exits  \nThrough the eastern door is the [Storage Room](2). Up the **ladder** is the attic (Dex Save DC 10 to not fall when its rotting rung gives out!)'
   },
   {
     id: '2',
