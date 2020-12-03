@@ -64,7 +64,7 @@ export const DraggableMarker = ({
         setActiveMarkerId(markerData.id);
       }
     }),
-    []
+    [setActiveMarkerId, markerData]
   );
 
   return (
