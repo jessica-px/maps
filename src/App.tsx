@@ -50,6 +50,7 @@ const InternalLinkRenderer = ({href, children}: any) => {
 const PageLayout = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100vh;
 `
 
 const SidebarColumn = styled.div`
@@ -61,7 +62,10 @@ const SidebarColumn = styled.div`
 const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
-  padding: 20px;
+  padding: 0 20px;
+  max-height: 100vh;
+  margin-bottom: 55px;
+  overflow: auto;
 `
 
 const SidebarItem = styled.div<any>`
