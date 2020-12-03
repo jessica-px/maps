@@ -41,10 +41,17 @@ const MarkdownLink = styled.span`
 const InternalLinkRenderer = ({href, children}: any) => {
   const linkId = href;
   const linkText = children[0].props.value;
-  const mapContext = useContext(MapContext);
+  const [state, dispatch] = useContext(MapContext);
+
+  const setActiveRoomId = (newId: string): void => {
+    dispatch({
+      type: 'Set_ACTIVE_ROOM_ID',
+      payload: newId
+    })
+  }
 
   return (
-    <MarkdownLink onClick={() => console.log(mapContext)}>{linkText}</MarkdownLink>
+    <MarkdownLink onClick={() => setActiveRoomId(linkId)}>{linkText}</MarkdownLink>
   );
 }
 
