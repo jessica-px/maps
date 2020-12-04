@@ -11,7 +11,7 @@ import { RoomTitle } from './RoomTitle';
 const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
-  padding-top: 20px;
+  padding: 20px 20px 0 20px;
   display: flex;
   flex-direction: column;
   overflow: auto;
