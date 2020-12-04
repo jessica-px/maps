@@ -12,6 +12,7 @@ export interface Marker {
 
 export interface Room {
   id: string,
+  listPosition: number,
   name: string,
   description: string
 }
@@ -24,22 +25,23 @@ export interface MapState {
 
 const initialMarkerList: Marker[] = [
   {
-    id: '1',
+    id: '332e3',
     position: [54, 70]
   },
   {
-    id: '2',
+    id: '23e21',
     position: [65, 35]
   },
   {
-    id: '3',
+    id: '9cws2',
     position: [30, 70]
   }
 ];
 
 const initialRoomList = [
   {
-    id: '1',
+    id: '332e3',
+    listPosition: 1,
     name: 'Barracks',
     description: `## Description
       \nFifteen straw mattresses are placed around the room, each with a small wooden chest at its foot. A long table is in the center of the room, with benches to each side. Four lizardfolk warriors receive orders from a heavily armored officer. Another lizardfolk dressed in a robe stands to one side, observing the assembly.
@@ -53,7 +55,8 @@ const initialRoomList = [
       `
   },
   {
-    id: '2',
+    id: '23e21',
+    listPosition: 2,
     name: 'Storage Room',
     description: `## Description
     \nHanging from hooks set into the ceiling are **six carcasses** of various shapes and sizes. Against the south and west walls are a collection of crates, baskets, and barrels filled with fruit, oil, salt, and pickled meat. Against the east wall is a large wooden cage in which squawk a dozen irritable waterfowl.
@@ -70,7 +73,8 @@ const initialRoomList = [
     `
   },
   {
-    id: '3',
+    id: '9cws2',
+    listPosition: 3,
     name: 'Officer\'s Quarters',
     description: `## Description
     \nA wooden table against the north wall is set with an earthenware jug of cider and a wooden cup. A wooden chair stands by the table. A bed stands against the west wall with a brass-bound, wooden chest against its foot.
@@ -89,7 +93,7 @@ const initialRoomList = [
 export const initialState = {
   roomList: initialRoomList,
   markerList: initialMarkerList,
-  activeRoomId: '1'
+  activeRoomId: initialRoomList[0].id
 };
 
 // --------------------------------------------------------------- //
@@ -150,9 +154,9 @@ const reducer = (state: MapState, action: Action): MapState => {
 // for use by reducer, but doesn't directly modify state
 
 const addRoom = (state: MapState): Room[] => {
-  const newRoomId = state.roomList.length + 1;
   const newRoom = {
-    id: newRoomId.toString(),
+    id: Date.now().toString(),
+    listPosition: state.roomList.length + 1,
     name: 'New Location',
     description: '## Description\nClick \'edit\' to customize this text.'
   };

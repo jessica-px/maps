@@ -196,8 +196,7 @@ export const ContentArea = () => {
         setEditModeEnabled={setEditModeEnabled}
       />
       <RoomTitle
-        id={state.activeRoomId}
-        name={activeRoom.name}
+        room={activeRoom}
       />
       {editModeEnabled
         ? <EditMarkdownTextArea />

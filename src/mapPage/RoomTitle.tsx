@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { MapContext } from './MapContextProvider';
+import { MapContext, Room } from './MapContextProvider';
 
 // --------------------------------------------------------------- //
 //                              Styles                             //
@@ -42,15 +42,19 @@ const RoomTitleInputStyle = styled.input`
 // --------------------------------------------------------------- //
 
 interface RoomTitleDisplayModeProps {
-  id: string,
+  listPosition: number,
   name: string,
   toggleEditMode: () => void
 }
 
 // The RoomTitle in display mode: text title and "rename" button
-const RoomTitleDisplayMode = ({ id, name, toggleEditMode }: RoomTitleDisplayModeProps) => (
+const RoomTitleDisplayMode = ({
+  listPosition,
+  name,
+  toggleEditMode
+}: RoomTitleDisplayModeProps) => (
   <RoomTitleContainer>
-    <RoomTitleText>{id}. {name}</RoomTitleText>
+    <RoomTitleText>{listPosition}. {name}</RoomTitleText>
     <RoomTitleRenameButton
       onClick={() => toggleEditMode()}
     >
@@ -95,13 +99,12 @@ const RoomTitleEditMode = ({ name, id, toggleEditMode }: RoomTitleEditModeProps)
 // --------------------------------------------------------------- //
 
 interface RoomTitleProps {
-  id: string,
-  name: string
+  room: Room
 }
 
 // Displays a room's title alongside an edit/save button that toggles
 // between display/edit modes.
-export const RoomTitle = ({ id, name }: RoomTitleProps) => {
+export const RoomTitle = ({ room }: RoomTitleProps) => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
 
   const toggleEditMode = () => setEditModeEnabled(!editModeEnabled);
@@ -109,8 +112,8 @@ export const RoomTitle = ({ id, name }: RoomTitleProps) => {
   if (editModeEnabled) {
     return (
       <RoomTitleEditMode
-        name={name}
-        id={id}
+        name={room.name}
+        id={room.id}
         toggleEditMode={toggleEditMode}
       />
     );
@@ -118,8 +121,8 @@ export const RoomTitle = ({ id, name }: RoomTitleProps) => {
 
   return (
     <RoomTitleDisplayMode
-      name={name}
-      id={id}
+      name={room.name}
+      listPosition={room.listPosition}
       toggleEditMode={toggleEditMode}
     />
   );
