@@ -8,6 +8,7 @@ import { RoomTitle } from './RoomTitle';
 //                              Styles                             //
 // --------------------------------------------------------------- //
 
+// Container in which everything inthe content area is held
 const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
@@ -28,6 +29,7 @@ const StyledTextArea = styled.textarea`
   height: 557px;
 `;
 
+// Style for the edit/delete buttons
 const EditButton = styled.div`
   &:hover {
     color: royalblue;
@@ -36,6 +38,8 @@ const EditButton = styled.div`
   }
 `;
 
+// The menu bar that renders above the room title,
+// contains the the edit/delete buttons
 const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
@@ -43,6 +47,7 @@ const StyledMenu = styled.div`
   padding: 5px 0;
 `;
 
+// For adding scrollbars
 const SizeContainer = styled.div`
   overflow: auto;
 `;
@@ -146,6 +151,10 @@ const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
 // --------------------------------------------------------------- //
 //                           Main Component                        //
 // --------------------------------------------------------------- //
+// The contents of the middle column of the map page:
+// renders a menu bar with edit/delete buttons, the room's title,
+// and can swap between displaying the styled content or a textarea
+// where users can edit the markdown.
 
 export const ContentArea = () => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
