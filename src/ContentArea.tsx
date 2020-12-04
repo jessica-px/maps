@@ -86,6 +86,8 @@ const InternalLinkRenderer = ({ href, children }: InternalLinkRendererProps) => 
 //                           Sub-Components                        //
 // --------------------------------------------------------------- //
 
+// A large text area for editing the body content of a room. Text is
+// in markdown format.
 const EditMarkdownTextArea = () => {
   const [state, dispatch] = useContext(MapContext);
   const activeRoom = getRoomById(state.roomList, state.activeRoomId);
@@ -109,7 +111,7 @@ interface MenuBarProps {
   editModeEnabled: boolean,
   setEditModeEnabled: (x: boolean) => void
 }
-
+// The menu bar above the content area, containing the Edit button
 const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => (
   <StyledMenu>
     <div>Menu Bar</div>
