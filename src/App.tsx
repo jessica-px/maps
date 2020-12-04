@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Map } from './mapPage/Map';
 import { ContentArea } from './mapPage/ContentArea';
 import { Sidebar } from './mapPage/Sidebar';
@@ -11,10 +11,23 @@ import 'leaflet/dist/leaflet.css';
 //                       Styled Components                         //
 // --------------------------------------------------------------- //
 
+const GlobalStyle = createGlobalStyle`
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+`;
+
 const PageLayout = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100vh;
 `;
 
 // --------------------------------------------------------------- //
@@ -28,13 +41,16 @@ const AppWrapper = () => (
 );
 
 const App = () => (
-  <PageLayout>
-    <Sidebar />
-    <ContentArea />
-    <Map
-      imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
-    />
-  </PageLayout>
+  <>
+    <GlobalStyle />
+    <PageLayout>
+      <Sidebar />
+      <ContentArea />
+      <Map
+        imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
+      />
+    </PageLayout>
+  </>
 );
 
 export default AppWrapper;
