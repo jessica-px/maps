@@ -16,14 +16,16 @@ const ContentColumn = styled.div`
   box-sizing: border-box;
 `;
 
+// height is temporarily hardcoded until dynamic height for textareas
+// can be figured out :(
 const StyledTextArea = styled.textarea`
   width: 96%;
-  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   padding: 5px;
   resize: none;
+  height: 557px;
 `;
 
 const EditButton = styled.div`
