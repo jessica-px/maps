@@ -49,7 +49,7 @@ export const Sidebar = () => {
 
   const setActiveRoomId = (newId: string): void => {
     dispatch({
-      type: 'Set_ACTIVE_ROOM_ID',
+      type: 'SET_ACTIVE_ROOM_ID',
       payload: newId
     });
   };

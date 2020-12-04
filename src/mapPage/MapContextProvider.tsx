@@ -105,7 +105,7 @@ interface Action {
 
 const reducer = (state: MapState, action: Action): MapState => {
   switch (action.type) {
-    case 'Set_ACTIVE_ROOM_ID':
+    case 'SET_ACTIVE_ROOM_ID':
       return {
         ...state,
         activeRoomId: action.payload
