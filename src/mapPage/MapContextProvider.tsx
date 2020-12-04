@@ -127,8 +127,7 @@ const reducer = (state: MapState, action: Action): MapState => {
     case 'ADD_ROOM':
       return {
         ...state,
-        roomList: addRoom(state),
-        markerList: addMarker(state)
+        ...addRoom(state)
       };
     case 'UPDATE_ROOM_NAME':
       return {
@@ -151,27 +150,30 @@ const reducer = (state: MapState, action: Action): MapState => {
 // Functions for making updates to the state -- should return values
 // for use by reducer, but doesn't directly modify state
 
-const addRoom = (state: MapState): Room[] => {
+const addRoom = (state: MapState): MapState => {
+  const newId = Date.now().toString();
+  // build new Room[]
   const newRoom = {
-    id: Date.now().toString(),
+    id: newId,
     listPosition: state.roomList.length + 1,
     name: 'New Location',
     description: '## Description\nClick \'edit\' to customize this text.'
   };
   const newRoomList = state.roomList.slice();
   newRoomList.push(newRoom);
-  return newRoomList;
-};
-
-const addMarker = (state: MapState): Marker[] => {
-  const newMarkerId = state.markerList.length + 1;
+  // Build new Marker[]
   const newMarker = {
-    id: newMarkerId.toString(),
+    id: newId,
     position: [30, 50]
   } as Marker;
   const newMarkerList = state.markerList.slice();
   newMarkerList.push(newMarker);
-  return newMarkerList;
+
+  return {
+    ...state,
+    roomList: newRoomList,
+    markerList: newMarkerList
+  };
 };
 
 const renameRoom = (state: MapState, roomId: string, newName: string): Room[] => {
@@ -195,7 +197,7 @@ const deleteRoom = (state: MapState, roomId: string): MapState => {
   for (let i = 0; i < sortedRoomList.length; i++) {
     const room = sortedRoomList[i];
     if (room.id !== roomId) {
-      newRoomList.push({...room, listPosition: currListPosition});
+      newRoomList.push({ ...room, listPosition: currListPosition });
       currListPosition += 1;
     }
   }
