@@ -11,9 +11,9 @@ import { RoomTitle } from './RoomTitle';
 const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
-  padding: 0 20px;
-  max-height: 100vh;
-  margin-bottom: 55px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
   overflow: auto;
   box-sizing: border-box;
 `;
@@ -42,6 +42,12 @@ const StyledMenu = styled.div`
   align-items: center;
   padding: 5px 0;
 `;
+
+const SizeContainer = styled.div`
+  overflow: auto;
+  flex: 1;
+`;
+
 // --------------------------------------------------------------- //
 //                           Custom Markdown                       //
 // --------------------------------------------------------------- //
@@ -131,9 +137,11 @@ interface ContentDisplayAreaProps {
 // The large section for displaying a room's body content. Takes markdown
 // as input and renders it with react-markdown.
 const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
-  <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
-    {activeRoom.description}
-  </ReactMarkdown>
+  <SizeContainer>
+    <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
+      {activeRoom.description}
+    </ReactMarkdown>
+  </SizeContainer>
 );
 
 // --------------------------------------------------------------- //
