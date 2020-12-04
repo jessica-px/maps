@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { Map } from './Map';
-import { ContentArea } from './ContentArea';
-import { MapContextProvider, MapContext } from './MapContextProvider';
+import { Map } from './mapPage/Map';
+import { ContentArea } from './mapPage/ContentArea';
+import { MapContextProvider, MapContext } from './mapPage/MapContextProvider';
 
 import 'leaflet/dist/leaflet.css';
 
