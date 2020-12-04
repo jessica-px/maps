@@ -11,6 +11,7 @@ const SidebarColumn = styled.div`
   width: 250px;
   padding: 20px;
   padding-left: 50px;
+  overflow: auto;
 `;
 
 interface SidebarItemProps {
