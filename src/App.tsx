@@ -32,7 +32,7 @@ const PageLayout = styled.div`
 `;
 
 const Footer = styled.div`
-  background-color: lightgray;
+  background-color: #EEE;
   height: 40px;
   width: 100%;
 `;
