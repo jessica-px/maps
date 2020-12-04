@@ -59,6 +59,8 @@ const MenuButtons = styled.div`
 // For adding scrollbars
 const SizeContainer = styled.div`
   overflow: auto;
+  min-height: 600px;
+  box-sizing: border-box;
 `;
 
 // --------------------------------------------------------------- //
