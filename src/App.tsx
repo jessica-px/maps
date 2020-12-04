@@ -28,6 +28,13 @@ const GlobalStyle = createGlobalStyle`
 const PageLayout = styled.div`
   display: flex;
   flex-direction: row;
+  max-height: calc(100vh - 40px);
+`;
+
+const Footer = styled.div`
+  background-color: lightgray;
+  height: 40px;
+  width: 100%;
 `;
 
 // --------------------------------------------------------------- //
@@ -50,6 +57,7 @@ const App = () => (
         imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
       />
     </PageLayout>
+    <Footer />
   </>
 );
 
