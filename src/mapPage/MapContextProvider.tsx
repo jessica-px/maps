@@ -56,7 +56,7 @@ const initialRoomList = [
   },
   {
     id: '23e21',
-    listPosition: 2,
+    listPosition: 3,
     name: 'Storage Room',
     description: `## Description
     \nHanging from hooks set into the ceiling are **six carcasses** of various shapes and sizes. Against the south and west walls are a collection of crates, baskets, and barrels filled with fruit, oil, salt, and pickled meat. Against the east wall is a large wooden cage in which squawk a dozen irritable waterfowl.
@@ -74,7 +74,7 @@ const initialRoomList = [
   },
   {
     id: '9cws2',
-    listPosition: 3,
+    listPosition: 2,
     name: 'Officer\'s Quarters',
     description: `## Description
     \nA wooden table against the north wall is set with an earthenware jug of cider and a wooden cup. A wooden chair stands by the table. A bed stands against the west wall with a brass-bound, wooden chest against its foot.
@@ -213,6 +213,12 @@ export const getRoomById = (roomList: Room[], id: string): Room => {
     }
   }
   throw new Error(`No room found with id: ${id}`);
+};
+
+export const sortRoomListByListPosition = (roomList: Room[]): Room[] => {
+  const newRoomList = roomList.slice();
+  newRoomList.sort((a: Room, b: Room) => a.listPosition - b.listPosition);
+  return newRoomList;
 };
 
 // --------------------------------------------------------------- //
