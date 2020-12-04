@@ -12,8 +12,6 @@ const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
   padding: 20px 20px 0 20px;
-  display: flex;
-  flex-direction: column;
   overflow: auto;
   box-sizing: border-box;
 `;
@@ -45,7 +43,6 @@ const StyledMenu = styled.div`
 
 const SizeContainer = styled.div`
   overflow: auto;
-  flex: 1;
 `;
 
 // --------------------------------------------------------------- //
