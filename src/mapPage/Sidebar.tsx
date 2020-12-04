@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { MapContext } from '../mapPage/MapContextProvider';
+import { MapContext } from './MapContextProvider';
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
