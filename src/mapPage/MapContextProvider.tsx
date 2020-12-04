@@ -138,9 +138,7 @@ const reducer = (state: MapState, action: Action): MapState => {
     case 'DELETE_ROOM':
       return {
         ...state,
-        roomList: deleteRoom(state, action.payload.id),
-        markerList: deleteMarker(state, action.payload.id),
-        activeRoomId: state.roomList[0].id
+        ...deleteRoom(state, action.payload.id)
       };
     default:
       throw new Error(`No action found in reducer with type: ${action.type}.`);
@@ -188,16 +186,37 @@ const renameRoom = (state: MapState, roomId: string, newName: string): Room[] =>
   return newRoomList;
 };
 
-const deleteRoom = (state: MapState, roomId: string): Room[] => {
-  // Returns a Room[], minus the room with the given roomId
-  const newRoomList = state.roomList.filter((room) => room.id !== roomId);
-  return newRoomList;
-};
+const deleteRoom = (state: MapState, roomId: string): MapState => {
+  // New list of rooms, minus the one with the given id, and adjusting
+  // list positions accordingly
+  const sortedRoomList = sortRoomListByListPosition(state.roomList);
+  const newRoomList = [];
+  let currListPosition = 1;
+  for (let i = 0; i < sortedRoomList.length; i++) {
+    const room = sortedRoomList[i];
+    if (room.id !== roomId) {
+      newRoomList.push({...room, listPosition: currListPosition});
+      currListPosition += 1;
+    }
+  }
+  // Removes marker associated with deleted room
+  const newMarkerList = state.markerList.filter((marker) => marker.id !== roomId);
 
-const deleteMarker = (state: MapState, id: string): Marker[] => {
-  // Returns a Marker[], minus the marker with the given id
-  const newMarkerList = state.markerList.filter((marker) => marker.id !== id);
-  return newMarkerList;
+  // Sets room with next highest listPosition as next active room, unless this is
+  // the final room. Then choose the next lowest.
+  const currentRoom = getRoomById(state.roomList, roomId);
+  let newActiveRoomId = '';
+  if (currentRoom.listPosition < state.roomList.length) {
+    newActiveRoomId = getRoomByListPosition(state.roomList, currentRoom.listPosition + 1).id;
+  } else {
+    newActiveRoomId = getRoomByListPosition(state.roomList, currentRoom.listPosition - 1).id;
+  }
+
+  return {
+    roomList: newRoomList,
+    markerList: newMarkerList,
+    activeRoomId: newActiveRoomId
+  };
 };
 
 // --------------------------------------------------------------- //
@@ -213,6 +232,15 @@ export const getRoomById = (roomList: Room[], id: string): Room => {
     }
   }
   throw new Error(`No room found with id: ${id}`);
+};
+
+export const getRoomByListPosition = (roomList: Room[], position: number): Room => {
+  for (const room of roomList) {
+    if (room.listPosition === position) {
+      return room;
+    }
+  }
+  throw new Error(`No room found with listPosition: ${position}`);
 };
 
 export const sortRoomListByListPosition = (roomList: Room[]): Room[] => {
