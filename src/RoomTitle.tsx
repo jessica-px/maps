@@ -32,6 +32,11 @@ const RoomTitleText = styled.div`
   font-weight: bold;
 `;
 
+const RoomTitleInputStyle = styled.input`
+  font-size: 32px;
+  font-weight: bold;
+`;
+
 // --------------------------------------------------------------- //
 //                         Sub-Components                          //
 // --------------------------------------------------------------- //
@@ -74,14 +79,14 @@ const RoomTitleEditMode = ({ name, id, toggleEditMode }: RoomTitleEditModeProps)
   };
 
   return (
-    <h1>
-      <input value={editText} onChange={(event) => setEditText(event.target.value)} />
+    <RoomTitleContainer>
+      <RoomTitleInputStyle value={editText} onChange={(event) => setEditText(event.target.value)} />
       <RoomTitleRenameButton
         onClick={() => updateRoomName()}
       >
         Save
       </RoomTitleRenameButton>
-    </h1>
+    </RoomTitleContainer>
   );
 };
 
