@@ -30,7 +30,7 @@ const StyledTextArea = styled.textarea`
 `;
 
 // Style for the edit/delete buttons
-const EditButton = styled.div`
+const MenuButton = styled.div`
   &:hover {
     color: royalblue;
     cursor: pointer;
@@ -39,12 +39,21 @@ const EditButton = styled.div`
 `;
 
 // The menu bar that renders above the room title,
-// contains the the edit/delete buttons
+// contains (fake) breadcrumbs on the left and edit/delete buttons on the right
 const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 0;
+`;
+
+const MenuButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  & > div {
+    padding-left: 10px;
+  }
 `;
 
 // For adding scrollbars
@@ -123,16 +132,34 @@ interface MenuBarProps {
   setEditModeEnabled: (x: boolean) => void
 }
 // The menu bar above the content area, containing the Edit button
-const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => (
-  <StyledMenu>
-    <div>Menu Bar</div>
-    <EditButton
-      onClick={() => setEditModeEnabled(!editModeEnabled)}
-    >
-      {editModeEnabled ? 'Save' : 'Edit'}
-    </EditButton>
-  </StyledMenu>
-);
+const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
+  const [state, dispatch] = useContext(MapContext);
+
+  const deleteRoom = (id: string): void => {
+    dispatch({
+      type: 'DELETE_ROOM',
+      payload: { id }
+    });
+  };
+
+  return (
+    <StyledMenu>
+      <div>{'Dungeon Maps > Lizarfolk Den'}</div>
+      <MenuButtons>
+        <MenuButton
+          onClick={() => deleteRoom(state.activeRoomId)}
+        >
+          Delete
+        </MenuButton>
+        <MenuButton
+          onClick={() => setEditModeEnabled(!editModeEnabled)}
+        >
+          {editModeEnabled ? 'Save' : 'Edit'}
+        </MenuButton>
+      </MenuButtons>
+    </StyledMenu>
+  );
+};
 
 interface ContentDisplayAreaProps {
   activeRoom: Room
