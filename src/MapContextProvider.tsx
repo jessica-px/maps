@@ -172,10 +172,10 @@ const renameRoom = (state: MapState, roomId: string, newName: string): Room[] =>
       return { ...room, name: newName };
     }
     return room;
-  })
+  });
 
   return newRoomList;
-}
+};
 
 // --------------------------------------------------------------- //
 //                           State Helpers                         //
