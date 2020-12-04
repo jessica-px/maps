@@ -131,6 +131,13 @@ const reducer = (state: MapState, action: Action): MapState => {
         ...state,
         roomList: renameRoom(state, action.payload.roomId, action.payload.newName)
       };
+    case 'DELETE_ROOM':
+      return {
+        ...state,
+        roomList: deleteRoom(state, action.payload.id),
+        markerList: deleteMarker(state, action.payload.id),
+        activeRoomId: state.roomList[0].id
+      };
     default:
       throw new Error(`No action found in reducer with type: ${action.type}.`);
   }
@@ -175,6 +182,18 @@ const renameRoom = (state: MapState, roomId: string, newName: string): Room[] =>
   });
 
   return newRoomList;
+};
+
+const deleteRoom = (state: MapState, roomId: string): Room[] => {
+  // Returns a Room[], minus the room with the given roomId
+  const newRoomList = state.roomList.filter((room) => room.id !== roomId);
+  return newRoomList;
+};
+
+const deleteMarker = (state: MapState, id: string): Marker[] => {
+  // Returns a Marker[], minus the marker with the given id
+  const newMarkerList = state.markerList.filter((marker) => marker.id !== id);
+  return newMarkerList;
 };
 
 // --------------------------------------------------------------- //
