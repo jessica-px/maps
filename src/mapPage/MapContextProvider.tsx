@@ -178,8 +178,10 @@ const renameRoom = (state: MapState, roomId: string, newName: string): Room[] =>
 };
 
 // --------------------------------------------------------------- //
-//                           State Helpers                         //
+//                           State Getters                         //
 // --------------------------------------------------------------- //
+// Functions for filtering and sorting through state data -- requires
+// state (or its properties) to be passed in. No mutations.
 
 export const getRoomById = (roomList: Room[], id: string): Room => {
   for (const room of roomList) {
