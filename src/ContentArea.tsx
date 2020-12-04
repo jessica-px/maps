@@ -2,6 +2,7 @@ import React, { useState, useContext, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { MapContext, Room, getRoomById } from './MapContextProvider';
+import { RoomTitle } from './RoomTitle';
 
 // --------------------------------------------------------------- //
 //                              Styles                             //
@@ -133,15 +134,6 @@ const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
   <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
     {activeRoom.description}
   </ReactMarkdown>
-);
-
-interface RoomTitleProps {
-  id: string,
-  name: string
-}
-
-const RoomTitle = ({ id, name }: RoomTitleProps) => (
-  <h1>{id}. {name}</h1>
 );
 
 // --------------------------------------------------------------- //
