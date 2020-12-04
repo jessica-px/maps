@@ -127,6 +127,8 @@ interface ContentDisplayAreaProps {
   activeRoom: Room
 }
 
+// The large section for displaying a room's body content. Takes markdown
+// as input and renders it with react-markdown.
 const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
   <ReactMarkdown renderers={{ link: InternalLinkRenderer }}>
     {activeRoom.description}
