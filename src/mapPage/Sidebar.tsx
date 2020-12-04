@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { MapContext } from './MapContextProvider';
+import { MapContext, sortRoomListByListPosition } from './MapContextProvider';
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
@@ -46,6 +46,7 @@ const AddNewRoomButton = styled.div`
 
 export const Sidebar = () => {
   const [state, dispatch] = useContext(MapContext);
+  const sortedRoomList = sortRoomListByListPosition(state.roomList);
 
   const setActiveRoomId = (newId: string): void => {
     dispatch({
@@ -64,13 +65,13 @@ export const Sidebar = () => {
   return (
     <SidebarColumn>
       <AddNewRoomButton onClick={() => addRoom()}>+ Add Location</AddNewRoomButton>
-      {state.roomList.map((room, i) => (
+      {sortedRoomList.map((room) => (
         <SidebarItem
           key={room.id}
           active={state.activeRoomId === room.id}
           onClick={() => setActiveRoomId(room.id)}
         >
-          {i + 1}. {room.name}
+          {room.listPosition}. {room.name}
         </SidebarItem>
       ))}
     </SidebarColumn>
