@@ -56,6 +56,13 @@ const MapPage = () => (
   </MapContextProvider>
 );
 
+const HomePage = () => (
+  <>
+    <h1>Home Page</h1>
+    <Link to="/maps">Maps</Link>
+  </>
+);
+
 const App = () => (
   <Router>
     <GlobalStyle />
@@ -64,8 +71,7 @@ const App = () => (
         <MapPage />
       </Route>
       <Route path="/">
-        <h1>Home Page</h1>
-        <Link to="/maps">Maps</Link>
+        <HomePage />
       </Route>
     </Switch>
     <Footer />
