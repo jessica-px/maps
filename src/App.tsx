@@ -45,18 +45,14 @@ const Footer = styled.div`
 // --------------------------------------------------------------- //
 
 const MapPage = () => (
-  <PageLayout>
-    <Sidebar />
-    <ContentArea />
-    <Map
-      imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
-    />
-  </PageLayout>
-);
-
-const AppWrapper = () => (
   <MapContextProvider>
-    <App />
+    <PageLayout>
+      <Sidebar />
+      <ContentArea />
+      <Map
+        imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
+      />
+    </PageLayout>
   </MapContextProvider>
 );
 
@@ -76,4 +72,4 @@ const App = () => (
   </Router>
 );
 
-export default AppWrapper;
+export default App;
