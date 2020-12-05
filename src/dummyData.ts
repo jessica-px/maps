@@ -77,6 +77,7 @@ export const dummyMap1 = {
 };
 
 const dummyDirectory = {
+  id: '5532f',
   name: 'My Maps',
   mapIds: ['l23kd']
 };
@@ -84,6 +85,6 @@ const dummyDirectory = {
 export const dummyUser = {
   id: '03qed',
   name: 'Jessica',
-  mapIds: ['l23kd'],
+  maps: [{ id: 'l23kd', name: 'Dummy Map' }],
   directories: [dummyDirectory]
 };

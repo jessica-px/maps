@@ -5,14 +5,20 @@ import { dummyUser } from './dummyData';
 //                              Types                              //
 // --------------------------------------------------------------- //
 
-interface UserState {
+export interface Map {
+  id: string,
+  name: string
+}
+
+export interface UserState {
   id: string,
   name: string,
-  mapIds: string[],
+  maps: Map[],
   directories: Directory[]
 }
 
-interface Directory {
+export interface Directory {
+  id: string,
   name: string,
   mapIds: string[]
 }
@@ -48,7 +54,7 @@ const userReducer = (userState: UserState, action: Action): UserState => {
 // All children of UserContextProvider can use useContext() to read this
 // data and dispatch updates to the reducer
 
-const UserContext = React.createContext<ContextType>([dummyUser, () => null]);
+export const UserContext = React.createContext<ContextType>([dummyUser, () => null]);
 
 export const UserContextProvider = ({ children }: UserContextProviderProps): React.ReactElement => {
   const [state, dispatch] = useReducer(userReducer, dummyUser);
