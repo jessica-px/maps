@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import {
   BrowserRouter as Router, Route, Switch, Link
@@ -8,7 +8,7 @@ import { ContentArea } from './mapPage/ContentArea';
 import { Sidebar } from './mapPage/Sidebar';
 import { MapContextProvider } from './mapPage/MapContextProvider';
 import {
-  UserContextProvider, UserContext, Directory, Map as MapType
+  UserContextProvider, Directory, Map as MapType, UserState
 } from './UserContext';
 
 import 'leaflet/dist/leaflet.css';
@@ -86,16 +86,40 @@ const DirectoryContainer = ({ dir, maps }: DirectoryContainerProps) => (
 );
 
 const HomePage = () => {
-  const [userState, dispatch] = useContext(UserContext);
-  return (
-    <>
-      <h1>Home Page</h1>
-      <p>Hello, {userState.name}</p>
-      {
-        userState.directories.map((dir) => <DirectoryContainer dir={dir} maps={userState.maps} key={dir.id} />)
-      }
-    </>
-  );
+  const [userState, setUserState] = useState<UserState | null>(null);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const getUser = () => {
+    fetch('/api/user', getOptions)
+      .then((response: any) => response.json()) // eslint-disable-line @typescript-eslint/no-explicit-any
+      .then((json: UserState) => {
+        setUserState(json);
+      });
+  };
+
+  if (userState) {
+    return (
+      <>
+        <h1>Home Page</h1>
+        <p>Hello, {userState.name}</p>
+        {
+          userState.directories.map((dir) => <DirectoryContainer dir={dir} maps={userState.maps} key={dir.id} />)
+        }
+      </>
+    );
+  }
+
+  return <p>You're not logged in!</p>;
 };
 
 // --------------------------------------------------------------- //
