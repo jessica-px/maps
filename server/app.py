@@ -1,8 +1,21 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask, jsonify, make_response, send_file, render_template, request
 
-print('Hello')
+app = Flask(__name__, static_folder="../build", template_folder="../build")
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+# -------------------------------------------------------------------------- #
+#                            Frontend Endpoints                              #
+# -------------------------------------------------------------------------- #
+'''
+    These endpoints serve bundle.js, at which points react-router takes over
+    routing and displays the correct components based on the url.
+    These endpoints are NOT meant to be used in development, which serves
+    the frontend via a dev-server at localhost:3000 instead of bundle.js.
+'''
+
+@app.route('/<path:path>', methods=['GET'])
+def any_root_path(path):
+    return render_template('index.html')
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template("index.html")
