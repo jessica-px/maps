@@ -1,5 +1,8 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import {
+  BrowserRouter as Router, Route, Switch, Link
+} from 'react-router-dom';
 import { Map } from './mapPage/Map';
 import { ContentArea } from './mapPage/ContentArea';
 import { Sidebar } from './mapPage/Sidebar';
@@ -41,6 +44,16 @@ const Footer = styled.div`
 //                         Main Component                          //
 // --------------------------------------------------------------- //
 
+const MapPage = () => (
+  <PageLayout>
+    <Sidebar />
+    <ContentArea />
+    <Map
+      imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
+    />
+  </PageLayout>
+);
+
 const AppWrapper = () => (
   <MapContextProvider>
     <App />
@@ -48,17 +61,19 @@ const AppWrapper = () => (
 );
 
 const App = () => (
-  <>
+  <Router>
     <GlobalStyle />
-    <PageLayout>
-      <Sidebar />
-      <ContentArea />
-      <Map
-        imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
-      />
-    </PageLayout>
+    <Switch>
+      <Route path="/maps">
+        <MapPage />
+      </Route>
+      <Route path="/">
+        <h1>Home Page</h1>
+        <Link to="/maps">Maps</Link>
+      </Route>
+    </Switch>
     <Footer />
-  </>
+  </Router>
 );
 
 export default AppWrapper;
