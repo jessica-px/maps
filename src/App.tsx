@@ -7,6 +7,7 @@ import { Map } from './mapPage/Map';
 import { ContentArea } from './mapPage/ContentArea';
 import { Sidebar } from './mapPage/Sidebar';
 import { MapContextProvider } from './mapPage/MapContextProvider';
+import { UserContextProvider } from './UserContext';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -69,16 +70,18 @@ const HomePage = () => (
 
 const App = () => (
   <Router>
-    <GlobalStyle />
-    <Switch>
-      <Route path="/maps">
-        <MapPage />
-      </Route>
-      <Route path="/">
-        <HomePage />
-      </Route>
-    </Switch>
-    <Footer />
+    <UserContextProvider>
+      <GlobalStyle />
+      <Switch>
+        <Route path="/maps">
+          <MapPage />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+      <Footer />
+    </UserContextProvider>
   </Router>
 );
 

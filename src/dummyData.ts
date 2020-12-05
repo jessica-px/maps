@@ -64,3 +64,26 @@ export const initialRoomList = [
     `
   }
 ];
+
+export const dummyMap1 = {
+  id: 'l23kd',
+  name: 'Dummy Map',
+  description: 'This is a map for testing.',
+  imageUrl: 'https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg',
+  ownerId: '03qed',
+  roomList: initialRoomList,
+  markerList: initialMarkerList,
+  activeRoomId: initialRoomList[0].id
+};
+
+const dummyDirectory = {
+  name: 'My Maps',
+  mapIds: ['l23kd']
+};
+
+export const dummyUser = {
+  id: '03qed',
+  name: 'Jessica',
+  mapIds: ['l23kd'],
+  directories: [dummyDirectory]
+};
