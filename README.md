@@ -6,10 +6,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### 1. Run Flask server
 
-`poetry run python -m flask run`
-Runs the server.\
+#### Setup server
 
 You may need to install [Poetry](https://python-poetry.org/) if you do not already have it. If you have issues with Poetry using the wrong python version, [this](https://github.com/python-poetry/poetry/issues/655#issuecomment-735634429) solution seems to work.\
+
+Flask will require a `.flaskenv` file to operate correctly. This file is not checked into git, so you will need to create it locally, with the following contents:
+
+```
+FLASK_APP=server/app.py
+FLASK_ENV=development
+```
+#### Run server
+
+`poetry run python -m flask run`
+Runs the server.\
 
 The server will run on `localhost:5000`, but you should not need to open it directly.
 
