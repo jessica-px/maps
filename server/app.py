@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, make_response, send_file, render_template, request
+import json
 
 app = Flask(__name__, static_folder="../build", template_folder="../build")
 
@@ -19,3 +20,25 @@ def any_root_path(path):
 @app.route('/', methods=['GET'])
 def index():
     return render_template("index.html")
+
+# -------------------------------------------------------------------------- #
+#                                API Endpoints                               #
+# -------------------------------------------------------------------------- #
+'''
+    These API endpoints can be used to GET/POST information between the
+    front and back ends.
+'''
+
+@app.route('/api/user', methods=['GET'])
+def get_user():
+    user = {
+        'id': '03qed',
+        'name': 'Jessica',
+        'maps': [{ 'id': 'l23kd', 'name': 'Dummy Map' }],
+        'directories': [{
+            'id': '5532f',
+            'name': 'My Maps',
+            'mapIds': ['l23kd']
+        }]
+    }
+    return jsonify(user)
