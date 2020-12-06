@@ -5,22 +5,15 @@ import { dummyUser } from './dummyData';
 //                              Types                              //
 // --------------------------------------------------------------- //
 
-export interface Map {
-  id: string,
-  name: string
-}
-
 export interface UserState {
   id: string,
-  name: string,
-  maps: Map[],
-  directories: Directory[]
+  name: string
 }
 
 export interface Directory {
   id: string,
   name: string,
-  mapIds: string[]
+  maps: {id: string, name: string}[]
 }
 
 type ContextType = [
