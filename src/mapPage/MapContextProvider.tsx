@@ -156,6 +156,7 @@ const deleteRoom = (state: MapState, roomId: string): MapState => {
   }
 
   return {
+    ...state,
     roomList: newRoomList,
     markerList: newMarkerList,
     activeRoomId: newActiveRoomId
