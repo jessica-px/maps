@@ -1,11 +1,7 @@
 import React, { useState, useContext, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import {
-  Room,
-  MapState,
-  MapContext
-} from './MapContext';
+import { Room, MapContext } from './MapContext';
 import { RoomTitle } from './RoomTitle';
 
 // --------------------------------------------------------------- //
