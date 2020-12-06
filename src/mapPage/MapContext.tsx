@@ -143,7 +143,7 @@ const deleteRoom = (mapState: MapState, roomId: string): MapState => {
   // the final room. Then choose the next lowest.
   const currentRoom = getRoomById(mapState.roomList, roomId);
   let newActiveRoomId = '';
-  if (currentRoom.listPosition < stamapStatete.roomList.length) {
+  if (currentRoom.listPosition < mapState.roomList.length) {
     newActiveRoomId = getRoomByListPosition(mapState.roomList, currentRoom.listPosition + 1).id;
   } else {
     newActiveRoomId = getRoomByListPosition(mapState.roomList, currentRoom.listPosition - 1).id;
