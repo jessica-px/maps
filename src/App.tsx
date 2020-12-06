@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import {
   BrowserRouter as Router, Route, Switch, Link
 } from 'react-router-dom';
-import { Map } from './mapPage/Map';
-import { ContentArea } from './mapPage/ContentArea';
-import { Sidebar } from './mapPage/Sidebar';
-import { MapContextProvider } from './mapPage/MapContextProvider';
-import {
-  UserContextProvider, Directory, Map as MapType, UserState
-} from './UserContext';
+import { UserContextProvider } from './UserContext';
+
+import { HomePage } from './homePage/HomePage';
+import { MapPage } from './mapPage/MapPage';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -31,96 +28,11 @@ const GlobalStyle = createGlobalStyle`
 
 `;
 
-const PageLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  max-height: calc(100vh - 40px);
-`;
-
 const Footer = styled.div`
   background-color: #EEE;
   height: 40px;
   width: 100%;
 `;
-
-// --------------------------------------------------------------- //
-//                          Sub-Components                         //
-// --------------------------------------------------------------- //
-
-const MapPage = () => (
-  <MapContextProvider>
-    <PageLayout>
-      <Sidebar />
-      <ContentArea />
-      <Map
-        imgUrl="https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg"
-      />
-    </PageLayout>
-  </MapContextProvider>
-);
-
-const getMapById = (maps: MapType[], mapId: string) => {
-  for (const map of maps) {
-    if (map.id === mapId) {
-      return map;
-    }
-  }
-  throw new Error(`No map found with id of ${mapId}.`);
-};
-
-interface DirectoryContainerProps {
-  dir: Directory,
-  maps: MapType[]
-}
-
-const DirectoryContainer = ({ dir, maps }: DirectoryContainerProps) => (
-  <>
-    <h3>{dir.name}</h3>
-    <ul>
-      {dir.mapIds.map((mapId) => {
-        const mapData = getMapById(maps, mapId);
-        return <li key={mapId}><Link to="/maps">{mapData.name}</Link></li>;
-      })}
-    </ul>
-  </>
-);
-
-const HomePage = () => {
-  const [userState, setUserState] = useState<UserState | null>(null);
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  const getOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const getUser = () => {
-    fetch('/api/user', getOptions)
-      .then((response: any) => response.json()) // eslint-disable-line @typescript-eslint/no-explicit-any
-      .then((json: UserState) => {
-        setUserState(json);
-      });
-  };
-
-  if (userState) {
-    return (
-      <>
-        <h1>Home Page</h1>
-        <p>Hello, {userState.name}</p>
-        {
-          userState.directories.map((dir) => <DirectoryContainer dir={dir} maps={userState.maps} key={dir.id} />)
-        }
-      </>
-    );
-  }
-
-  return <p>You're not logged in!</p>;
-};
 
 // --------------------------------------------------------------- //
 //                         Main Component                          //
