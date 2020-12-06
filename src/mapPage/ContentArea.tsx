@@ -138,7 +138,7 @@ interface MenuBarProps {
 }
 // The menu bar above the content area, containing the Edit button
 const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarProps) => {
-  const [, dispatch] = useContext(MapContext);
+  const [mapState, dispatch] = useContext(MapContext);
 
   const deleteRoom = (id: string): void => {
     dispatch({
@@ -146,23 +146,27 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarP
       payload: { id }
     });
   };
-  return (
-    <StyledMenu>
-      <div>{'Dungeon Maps > Lizarfolk Den'}</div>
-      <MenuButtons>
-        <MenuButton
-          onClick={() => deleteRoom(activeRoomId)}
-        >
-          Delete
-        </MenuButton>
-        <MenuButton
-          onClick={() => setEditModeEnabled(!editModeEnabled)}
-        >
-          {editModeEnabled ? 'Save' : 'Edit'}
-        </MenuButton>
-      </MenuButtons>
-    </StyledMenu>
-  );
+
+  if (mapState) {
+    return (
+      <StyledMenu>
+        <div>{`All Maps > ${mapState.directoryName} > ${mapState.name}`}</div>
+        <MenuButtons>
+          <MenuButton
+            onClick={() => deleteRoom(activeRoomId)}
+          >
+            Delete
+          </MenuButton>
+          <MenuButton
+            onClick={() => setEditModeEnabled(!editModeEnabled)}
+          >
+            {editModeEnabled ? 'Save' : 'Edit'}
+          </MenuButton>
+        </MenuButtons>
+      </StyledMenu>
+    );
+  }
+  return <p>Loading...</p>;
 };
 interface ContentDisplayAreaProps {
   activeRoom: Room
