@@ -38,7 +38,7 @@ interface Action {
   payload: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-const reducer = (state: MapState, action: Action): MapState => {
+const reducer = (mapState: MapState, action: Action): MapState => {
   switch (action.type) {
     case 'SET_MAP_DATA':
       return {
@@ -46,13 +46,13 @@ const reducer = (state: MapState, action: Action): MapState => {
       };
     case 'SET_ACTIVE_ROOM_ID':
       return {
-        ...state,
+        ...mapState,
         activeRoomId: action.payload
       };
     case 'UPDATE_ROOM_DESCRIPTION':
       return {
-        ...state,
-        roomList: state.roomList.map((room) => {
+        ...mapState,
+        roomList: mapState.roomList.map((room) => {
           if (room.id === action.payload.id) {
             return { ...room, description: action.payload.description };
           }
@@ -61,18 +61,18 @@ const reducer = (state: MapState, action: Action): MapState => {
       };
     case 'ADD_ROOM':
       return {
-        ...state,
-        ...addRoom(state)
+        ...mapState,
+        ...addRoom(mapState)
       };
     case 'UPDATE_ROOM_NAME':
       return {
-        ...state,
-        roomList: renameRoom(state, action.payload.roomId, action.payload.newName)
+        ...mapState,
+        roomList: renameRoom(mapState, action.payload.roomId, action.payload.newName)
       };
     case 'DELETE_ROOM':
       return {
-        ...state,
-        ...deleteRoom(state, action.payload.id)
+        ...mapState,
+        ...deleteRoom(mapState, action.payload.id)
       };
     default:
       throw new Error(`No action found in reducer with type: ${action.type}.`);
@@ -85,35 +85,35 @@ const reducer = (state: MapState, action: Action): MapState => {
 // Functions for making updates to the state -- should return values
 // for use by reducer, but doesn't directly modify state
 
-const addRoom = (state: MapState): MapState => {
+const addRoom = (mapState: MapState): MapState => {
   const newId = Date.now().toString();
   // build new Room[]
   const newRoom = {
     id: newId,
-    listPosition: state.roomList.length + 1,
+    listPosition: mapState.roomList.length + 1,
     name: 'New Location',
     description: '## Description\nClick \'edit\' to customize this text.'
   };
-  const newRoomList = state.roomList.slice();
+  const newRoomList = mapState.roomList.slice();
   newRoomList.push(newRoom);
   // Build new Marker[]
   const newMarker = {
     id: newId,
     position: [30, 50]
   } as Marker;
-  const newMarkerList = state.markerList.slice();
+  const newMarkerList = mapState.markerList.slice();
   newMarkerList.push(newMarker);
 
   return {
-    ...state,
+    ...mapState,
     roomList: newRoomList,
     markerList: newMarkerList
   };
 };
 
-const renameRoom = (state: MapState, roomId: string, newName: string): Room[] => {
+const renameRoom = (mapState: MapState, roomId: string, newName: string): Room[] => {
   // Returns a Room[] wherein the room with the given ID is updated with the new name
-  const newRoomList = state.roomList.map((room) => {
+  const newRoomList = mapState.roomList.map((room) => {
     if (room.id === roomId) {
       return { ...room, name: newName };
     }
@@ -123,10 +123,10 @@ const renameRoom = (state: MapState, roomId: string, newName: string): Room[] =>
   return newRoomList;
 };
 
-const deleteRoom = (state: MapState, roomId: string): MapState => {
+const deleteRoom = (mapState: MapState, roomId: string): MapState => {
   // New list of rooms, minus the one with the given id, and adjusting
   // list positions accordingly
-  const sortedRoomList = sortRoomListByListPosition(state.roomList);
+  const sortedRoomList = sortRoomListByListPosition(mapState.roomList);
   const newRoomList = [];
   let currListPosition = 1;
   for (let i = 0; i < sortedRoomList.length; i++) {
@@ -137,20 +137,20 @@ const deleteRoom = (state: MapState, roomId: string): MapState => {
     }
   }
   // Removes marker associated with deleted room
-  const newMarkerList = state.markerList.filter((marker) => marker.id !== roomId);
+  const newMarkerList = mapState.markerList.filter((marker) => marker.id !== roomId);
 
   // Sets room with next highest listPosition as next active room, unless this is
   // the final room. Then choose the next lowest.
-  const currentRoom = getRoomById(state.roomList, roomId);
+  const currentRoom = getRoomById(mapState.roomList, roomId);
   let newActiveRoomId = '';
-  if (currentRoom.listPosition < state.roomList.length) {
-    newActiveRoomId = getRoomByListPosition(state.roomList, currentRoom.listPosition + 1).id;
+  if (currentRoom.listPosition < stamapStatete.roomList.length) {
+    newActiveRoomId = getRoomByListPosition(mapState.roomList, currentRoom.listPosition + 1).id;
   } else {
-    newActiveRoomId = getRoomByListPosition(state.roomList, currentRoom.listPosition - 1).id;
+    newActiveRoomId = getRoomByListPosition(mapState.roomList, currentRoom.listPosition - 1).id;
   }
 
   return {
-    ...state,
+    ...mapState,
     roomList: newRoomList,
     markerList: newMarkerList,
     activeRoomId: newActiveRoomId
@@ -205,10 +205,10 @@ interface MapContextProviderProps {
 // This wraps around the top level of the app, allowing all children to
 // use useContext() to read this data and dispatch updates to the reducer
 export const MapContextProvider = ({ children }: MapContextProviderProps): React.ReactElement => {
-  const [state, dispatch] = useReducer(reducer, null as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const [mapState, dispatch] = useReducer(reducer, null as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   return (
-    <MapContext.Provider value={[state, dispatch]}>
+    <MapContext.Provider value={[mapState, dispatch]}>
       {children}
     </MapContext.Provider>
   );
