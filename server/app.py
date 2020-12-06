@@ -42,7 +42,7 @@ def get_directories():
     directories = [
         {
             'id': '5532f',
-            'name': 'My Map Folder',
+            'name': 'Saltmarsh',
             'maps': [
                 {'name': 'Dummy Map', 'id': 'l23kd'},
                 {'name': 'Test Map', 'id': '7e3ax'},
@@ -58,6 +58,7 @@ maps = [
         "description": 'This is a map for testing.',
         "imageUrl": 'https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg',
         "ownerId": '03qed',
+        "directoryName": "Saltmarsh",
         "activeRoomId": '634re',
         "roomList": [ {
             "id": '634re',
@@ -78,6 +79,7 @@ maps = [
         "description": 'This is a map for testing.',
         "imageUrl": 'https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg',
         "ownerId": '03qed',
+        "directoryName": "Saltmarsh",
         "activeRoomId": '332e3',
         "roomList": [
             {

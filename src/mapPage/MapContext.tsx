@@ -23,6 +23,7 @@ export interface MapState {
   description: string,
   imageUrl: string,
   activeRoomId: string,
+  directoryName: string,
   roomList: Room[],
   markerList: Marker[]
 }
