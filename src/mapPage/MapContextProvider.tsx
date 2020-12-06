@@ -46,6 +46,10 @@ interface Action {
 
 const reducer = (state: MapState, action: Action): MapState => {
   switch (action.type) {
+    case 'SET_MAP_DATA':
+      return {
+        ...action.payload
+      };
     case 'SET_ACTIVE_ROOM_ID':
       return {
         ...state,
