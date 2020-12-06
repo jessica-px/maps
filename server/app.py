@@ -58,6 +58,7 @@ maps = [
         "description": 'This is a map for testing.',
         "imageUrl": 'https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg',
         "ownerId": '03qed',
+        "activeRoomId": '634re',
         "roomList": [ {
             "id": '634re',
             "listPosition": 1,
@@ -77,6 +78,7 @@ maps = [
         "description": 'This is a map for testing.',
         "imageUrl": 'https://rapidnotes.files.wordpress.com/2016/08/dyson-logos-camping-map.jpg',
         "ownerId": '03qed',
+        "activeRoomId": '332e3',
         "roomList": [
             {
                 "id": '332e3',
@@ -91,7 +93,7 @@ maps = [
                 \n## Treasure
                 \nThe chests are unlocked and contain personal possessions. Five of the chests each contain a purse with 6 sp. Three of the other chests hold a whet stone, a dagger in a scabbard, and a crude wooden carving of a crocodile.
                 \n## Exits
-                \nThe northern door connects to a long hallway -- within sight are doors to the [Storage Room](2) and [Officer's Quarters](3). Around a corner are doors to the Alligator Pit and Lunch Hall.
+                \nThe northern door connects to a long hallway -- within sight are doors to the [Storage Room](23e21) and [Officer's Quarters](9cws2). Around a corner are doors to the Alligator Pit and Lunch Hall.
                 '''
             },
             {
@@ -110,7 +112,7 @@ maps = [
                 \n- a giant crayfish
                 \nOne of the sharks has a mostly smashed armor plate embedded in its side. The plate is made from coral and wood and appears to have been driven into the creature. If Oceanus is with the party, he identifies the shark's armor as of sahuagin manufacture and relates that animals like this serve the sahuagin as war beasts. Jn his absence, a character can glean the same information with a successful DC 14 Intelligence (Nature) check. 
                 \n## Exits
-                \n The eastern door opens into a long hallway -- within sight are doors to the [Barracks](1) and [Officer's Quarters](3). Around a corner are doors to the Alligator Pit and Lunch Hall.
+                \n The eastern door opens into a long hallway -- within sight are doors to the [Barracks](332e3) and [Officer's Quarters](9cws2). Around a corner are doors to the Alligator Pit and Lunch Hall.
                 '''
             },
             {
@@ -126,7 +128,7 @@ maps = [
                 \n## Treasure
                 \n The chest is locked and can be opened by a character who makes a successful DC 12 Dexterity check using thieves' tools or who has the key. It contains personal possessions, a purse containing 25 ep, a dagger in a scabbard, and a leather whip. The officer carries the key to the chest and he wears a silver collar (15 gp).
                 \n## Exits
-                \n The northern door opens into a long hallway -- within sight are doors to the [Barracks](1) and [Store Room](2). Around a corner are doors to the Alligator Pit and Lunch Hall.
+                \n The northern door opens into a long hallway -- within sight are doors to the [Barracks](332e3) and [Store Room](23e21). Around a corner are doors to the Alligator Pit and Lunch Hall.
                 \n South is a passage leading to the Armory.
                 '''
         }
