@@ -11,7 +11,7 @@ const getMarkerList = (): Marker[] => initialMarkerList as Marker[];
 
 export interface Marker {
   id: string,
-  position: [number, number]
+  position: number[]
 }
 
 export interface Room {
@@ -30,12 +30,6 @@ export interface MapState {
   roomList: Room[],
   markerList: Marker[]
 }
-
-export const initialState: MapState = {
-  roomList: getRoomList(),
-  markerList: getMarkerList(),
-  activeRoomId: initialRoomList[0].id
-};
 
 // --------------------------------------------------------------- //
 //                              Reducer                            //
@@ -202,11 +196,11 @@ export const sortRoomListByListPosition = (roomList: Room[]): Room[] => {
 // --------------------------------------------------------------- //
 
 type ContextType = [
-  MapState,
+  MapState | null,
   React.Dispatch<Action>
 ];
 
-export const MapContext = React.createContext<ContextType>([initialState, () => null]);
+export const MapContext = React.createContext<ContextType>([null, () => null]);
 
 interface MapContextProviderProps {
   children: React.ReactElement
@@ -215,7 +209,7 @@ interface MapContextProviderProps {
 // This wraps around the top level of the app, allowing all children to
 // use useContext() to read this data and dispatch updates to the reducer
 export const MapContextProvider = ({ children }: MapContextProviderProps): React.ReactElement => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, null as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   return (
     <MapContext.Provider value={[state, dispatch]}>
