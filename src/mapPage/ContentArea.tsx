@@ -1,7 +1,11 @@
 import React, { useState, useContext, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import { MapContext, Room, getRoomById } from './MapContextProvider';
+import {
+  Room,
+  MapState,
+  MapContext
+} from './MapContextProvider';
 import { RoomTitle } from './RoomTitle';
 
 // --------------------------------------------------------------- //
@@ -110,14 +114,16 @@ const InternalLinkRenderer = ({ href, children }: InternalLinkRendererProps) => 
 
 // A large text area for editing the body content of a room. Text is
 // in markdown format.
-const EditMarkdownTextArea = () => {
+interface EditMarkdownTextAreaProps {
+  activeRoom: Room
+}
+const EditMarkdownTextArea = ({ activeRoom }:EditMarkdownTextAreaProps) => {
   const [state, dispatch] = useContext(MapContext);
-  const activeRoom = getRoomById(state.roomList, state.activeRoomId);
 
   const updateRoomDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
       type: 'UPDATE_ROOM_DESCRIPTION',
-      payload: { id: state.activeRoomId, description: event.target.value }
+      payload: { id: activeRoom.id, description: event.target.value }
     });
   };
 
@@ -131,10 +137,11 @@ const EditMarkdownTextArea = () => {
 
 interface MenuBarProps {
   editModeEnabled: boolean,
-  setEditModeEnabled: (x: boolean) => void
+  setEditModeEnabled: (x: boolean) => void,
+  activeRoomId: string
 }
 // The menu bar above the content area, containing the Edit button
-const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
+const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarProps) => {
   const [state, dispatch] = useContext(MapContext);
 
   const deleteRoom = (id: string): void => {
@@ -143,13 +150,12 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
       payload: { id }
     });
   };
-
   return (
     <StyledMenu>
       <div>{'Dungeon Maps > Lizarfolk Den'}</div>
       <MenuButtons>
         <MenuButton
-          onClick={() => deleteRoom(state.activeRoomId)}
+          onClick={() => deleteRoom(activeRoomId)}
         >
           Delete
         </MenuButton>
@@ -162,7 +168,6 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled }: MenuBarProps) => {
     </StyledMenu>
   );
 };
-
 interface ContentDisplayAreaProps {
   activeRoom: Room
 }
@@ -185,23 +190,25 @@ const ContentDisplayArea = ({ activeRoom }: ContentDisplayAreaProps) => (
 // and can swap between displaying the styled content or a textarea
 // where users can edit the markdown.
 
-export const ContentArea = () => {
-  const [editModeEnabled, setEditModeEnabled] = useState(false);
-  const [state] = useContext(MapContext);
+interface ContentAreaProps {
+  activeRoom: Room
+}
 
-  const activeRoom = getRoomById(state.roomList, state.activeRoomId);
+export const ContentArea = ({ activeRoom }: ContentAreaProps) => {
+  const [editModeEnabled, setEditModeEnabled] = useState(false);
 
   return (
     <ContentColumn>
       <MenuBar
         editModeEnabled={editModeEnabled}
         setEditModeEnabled={setEditModeEnabled}
+        activeRoomId={activeRoom.id}
       />
       <RoomTitle
         room={activeRoom}
       />
       {editModeEnabled
-        ? <EditMarkdownTextArea />
+        ? <EditMarkdownTextArea activeRoom={activeRoom} />
         : <ContentDisplayArea activeRoom={activeRoom} />}
     </ContentColumn>
   );

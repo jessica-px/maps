@@ -72,7 +72,7 @@ export const DraggableMarker = ({
       icon={active ? activeLeafletIcon : inactiveLeafletIcon}
       draggable={true}
       eventHandlers={eventHandlers}
-      position={position}
+      position={position as [number, number]}
       ref={markerRef}
       zIndexOffset={active ? 1000 : 0}
     >

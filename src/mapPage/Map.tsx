@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MapContainer, ImageOverlay, useMap } from 'react-leaflet';
 import { LatLngBoundsExpression } from 'leaflet';
 import { DraggableMarker } from './DraggableMarker';
-import { MapContext, getRoomById } from './MapContextProvider';
+import { MapContext, MapState, getRoomById } from './MapContextProvider';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -51,12 +51,8 @@ const StyleContainer = styled.div`
       in markerList, which describes the coordinates and IDs for each marker
 */
 
-interface MapProps {
-  imgUrl: string
-}
-
-export const Map = ({ imgUrl }: MapProps) => {
-  const [state, dispatch] = useContext(MapContext);
+export const Map = () => {
+  const [mapData, dispatch] = useContext(MapContext);
 
   const setActiveMarkerId = (newId: string): void => {
     dispatch({
@@ -64,22 +60,24 @@ export const Map = ({ imgUrl }: MapProps) => {
       payload: newId
     });
   };
-
-  return (
-    <StyleContainer>
-      <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: '600px', width: '600px' }}>
-        <SetMapBoundsHook />
-        <ImageOverlay bounds={imgBounds} url={imgUrl} />
-        {state.markerList.map((markerData) => (
-          <DraggableMarker
-            roomName={getRoomById(state.roomList, markerData.id).name}
-            markerData={markerData}
-            key={markerData.id}
-            active={state.activeRoomId === markerData.id}
-            setActiveMarkerId={setActiveMarkerId}
-          />
-        ))}
-      </MapContainer>
-    </StyleContainer>
-  );
+  if (mapData) {
+    return (
+      <StyleContainer>
+        <MapContainer center={[0, 0]} zoom={1} minZoom={0} maxZoom={3} scrollWheelZoom={false} style={{ height: '600px', width: '600px' }}>
+          <SetMapBoundsHook />
+          <ImageOverlay bounds={imgBounds} url={mapData.imageUrl} />
+          {mapData.markerList.map((markerData) => (
+            <DraggableMarker
+              roomName={getRoomById(mapData.roomList, markerData.id).name}
+              markerData={markerData}
+              key={markerData.id}
+              active={mapData.activeRoomId === markerData.id}
+              setActiveMarkerId={setActiveMarkerId}
+            />
+          ))}
+        </MapContainer>
+      </StyleContainer>
+    );
+  }
+  return <p>No map data!</p>;
 };

@@ -46,7 +46,6 @@ const AddNewRoomButton = styled.div`
 
 export const Sidebar = () => {
   const [state, dispatch] = useContext(MapContext);
-  const sortedRoomList = sortRoomListByListPosition(state.roomList);
 
   const setActiveRoomId = (newId: string): void => {
     dispatch({
@@ -62,18 +61,23 @@ export const Sidebar = () => {
     });
   };
 
-  return (
-    <SidebarColumn>
-      <AddNewRoomButton onClick={() => addRoom()}>+ Add Location</AddNewRoomButton>
-      {sortedRoomList.map((room) => (
-        <SidebarItem
-          key={room.id}
-          active={state.activeRoomId === room.id}
-          onClick={() => setActiveRoomId(room.id)}
-        >
-          {room.listPosition}. {room.name}
-        </SidebarItem>
-      ))}
-    </SidebarColumn>
-  );
+  if (state) {
+    const sortedRoomList = sortRoomListByListPosition(state.roomList);
+
+    return (
+      <SidebarColumn>
+        <AddNewRoomButton onClick={() => addRoom()}>+ Add Location</AddNewRoomButton>
+        {sortedRoomList.map((room) => (
+          <SidebarItem
+            key={room.id}
+            active={state.activeRoomId === room.id}
+            onClick={() => setActiveRoomId(room.id)}
+          >
+            {room.listPosition}. {room.name}
+          </SidebarItem>
+        ))}
+      </SidebarColumn>
+    );
+  }
+  return <p>Didn't load!</p>;
 };
