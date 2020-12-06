@@ -22,6 +22,10 @@ export interface Room {
 }
 
 export interface MapState {
+  id: string,
+  name: string,
+  description: string,
+  imageUrl: string,
   activeRoomId: string,
   roomList: Room[],
   markerList: Marker[]
