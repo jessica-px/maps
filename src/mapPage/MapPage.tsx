@@ -9,7 +9,7 @@ import {
   MapContext,
   MapState,
   getRoomById
-} from './MapContextProvider';
+} from './MapContext';
 
 // --------------------------------------------------------------- //
 //                        Styled Components                        //

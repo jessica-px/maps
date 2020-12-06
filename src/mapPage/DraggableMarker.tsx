@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-import { Marker as MarkerType } from './MapContextProvider';
+import { Marker as MarkerType } from './MapContext';
 
 const activeLeafletIcon = L.icon({
   iconUrl: markerIcon,

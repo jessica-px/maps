@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { MapContext, Room } from './MapContextProvider';
+import { MapContext, Room } from './MapContext';
 
 // --------------------------------------------------------------- //
 //                              Styles                             //

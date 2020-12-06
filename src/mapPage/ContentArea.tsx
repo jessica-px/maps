@@ -5,7 +5,7 @@ import {
   Room,
   MapState,
   MapContext
-} from './MapContextProvider';
+} from './MapContext';
 import { RoomTitle } from './RoomTitle';
 
 // --------------------------------------------------------------- //

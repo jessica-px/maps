@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MapContainer, ImageOverlay, useMap } from 'react-leaflet';
 import { LatLngBoundsExpression } from 'leaflet';
 import { DraggableMarker } from './DraggableMarker';
-import { MapContext, MapState, getRoomById } from './MapContextProvider';
+import { MapContext, MapState, getRoomById } from './MapContext';
 
 import 'leaflet/dist/leaflet.css';
 

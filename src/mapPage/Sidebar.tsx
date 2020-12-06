@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { MapContext, sortRoomListByListPosition } from './MapContextProvider';
+import { MapContext, sortRoomListByListPosition } from './MapContext';
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
