@@ -71,7 +71,7 @@ interface RoomTitleEditModeProps {
 
 // The RoomTitle in edit mode: input field and "save" button
 const RoomTitleEditMode = ({ name, id, toggleEditMode }: RoomTitleEditModeProps) => {
-  const [state, dispatch] = useContext(MapContext);
+  const [, dispatch] = useContext(MapContext);
   const [editText, setEditText] = useState(name);
 
   const updateRoomName = () => {

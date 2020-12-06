@@ -90,7 +90,7 @@ interface InternalLinkRendererProps {
 const InternalLinkRenderer = ({ href, children }: InternalLinkRendererProps) => {
   const linkId = href;
   const linkText = children[0].props.value;
-  const [state, dispatch] = useContext(MapContext);
+  const [, dispatch] = useContext(MapContext);
 
   const setActiveRoomId = (newId: string): void => {
     dispatch({
@@ -114,7 +114,7 @@ interface EditMarkdownTextAreaProps {
   activeRoom: Room
 }
 const EditMarkdownTextArea = ({ activeRoom }:EditMarkdownTextAreaProps) => {
-  const [state, dispatch] = useContext(MapContext);
+  const [, dispatch] = useContext(MapContext);
 
   const updateRoomDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
@@ -138,7 +138,7 @@ interface MenuBarProps {
 }
 // The menu bar above the content area, containing the Edit button
 const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarProps) => {
-  const [state, dispatch] = useContext(MapContext);
+  const [, dispatch] = useContext(MapContext);
 
   const deleteRoom = (id: string): void => {
     dispatch({
