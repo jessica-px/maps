@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import {
-  BrowserRouter as Router, Route, Switch, Link
+  BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import { UserContextProvider } from './UserContext';
 
@@ -25,7 +25,6 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
 `;
 
 const Footer = styled.div`
