@@ -10,8 +10,8 @@ import { MapContext, sortRoomListByListPosition } from './MapContext';
 const SidebarColumn = styled.div`
   width: 250px;
   padding: 20px;
-  padding-left: 50px;
   overflow: auto;
+  background: rgba(230,239,241,1);
 `;
 
 interface SidebarItemProps {
@@ -20,7 +20,7 @@ interface SidebarItemProps {
 
 // Items listed in the sidebar (room titles)
 const SidebarItem = styled.div<SidebarItemProps>`
-  padding: 10px 0;
+  padding: 0 0 15px 10px;
   &:hover {
     font-weight: bold;
     cursor: pointer;
@@ -31,8 +31,8 @@ const SidebarItem = styled.div<SidebarItemProps>`
 `;
 
 // The "+ Add Location" button at the top of the sidebar
-const AddNewRoomButton = styled.div`
-  text-align: right;
+const TextButton = styled.div`
+  padding-left: 10px;
   &:hover {
     color: royalblue;
     cursor: pointer;
@@ -40,6 +40,9 @@ const AddNewRoomButton = styled.div`
   }
 `;
 
+const ListHeader = styled.h5`
+  opacity: .5;
+`;
 // --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
@@ -66,7 +69,9 @@ export const Sidebar = () => {
 
     return (
       <SidebarColumn>
-        <AddNewRoomButton onClick={() => addRoom()}>+ Add Location</AddNewRoomButton>
+        <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
+        <TextButton onClick={() => addRoom()}>+ Add Location</TextButton>
+        <ListHeader>LOCATIONS</ListHeader>
         {sortedRoomList.map((room) => (
           <SidebarItem
             key={room.id}
