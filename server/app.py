@@ -84,8 +84,7 @@ maps = [
                 "id": '332e3',
                 "listPosition": 1,
                 "name": 'Barracks',
-                "description": '''
-                ## Description
+                "description": '''## Description
                 \nFifteen straw mattresses are placed around the room, each with a small wooden chest at its foot. A long table is in the center of the room, with benches to each side. Four lizardfolk warriors receive orders from a heavily armored officer. Another lizardfolk dressed in a robe stands to one side, observing the assembly.
                 \n## Creatures
                 \nIf they have not been called elsewhere, four **lizard folk**, one **lizardfolk scaleshield**, and one **lizardfolk shaman** prepare for patrol in this room.
@@ -100,8 +99,7 @@ maps = [
                 "id": '23e21',
                 "listPosition": 3,
                 "name": 'Storage Room',
-                "description": '''
-                ## Description
+                "description": '''## Description
                 \nHanging from hooks set into the ceiling are **six carcasses** of various shapes and sizes. Against the south and west walls are a collection of crates, baskets, and barrels filled with fruit, oil, salt, and pickled meat. Against the east wall is a large wooden cage in which squawk a dozen irritable waterfowl.
                 \n## Carcasses
                 \nThe carcasses include:
@@ -119,8 +117,7 @@ maps = [
                 "id": '9cws2',
                 "listPosition": 2,
                 "name": 'Officer\'s Quarters',
-                "description": '''
-                ## Description
+                "description": '''## Description
                 \nA wooden table against the north wall is set with an earthenware jug of cider and a wooden cup. A wooden chair stands by the table. A bed stands against the west wall with a brass-bound, wooden chest against its foot.
                 \n## Creatures
                 \nAn officer (a **lizardfolk scaleshield**) sits on the bed, sharpening their sword. They leap up, ready to fight, as soon as the characters enter.
