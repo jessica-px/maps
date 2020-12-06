@@ -1,13 +1,9 @@
 import React, { useReducer } from 'react';
-import { initialRoomList, initialMarkerList } from '../dummyData';
 
 // --------------------------------------------------------------- //
-//                         Placeholder State                       //
+//                                  Types                          //
 // --------------------------------------------------------------- //
-// Dummy data and types for the contents of the map's state
-
-const getRoomList = (): Room[] => initialRoomList as Room[];
-const getMarkerList = (): Marker[] => initialMarkerList as Marker[];
+// Types for the contents of the map's state
 
 export interface Marker {
   id: string,
