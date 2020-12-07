@@ -33,9 +33,11 @@ const SidebarItem = styled.div<SidebarItemProps>`
   `}
 `;
 
-// The "+ Add Location" button at the top of the sidebar
-const TextButton = styled.div`
-  padding: 0 0 15px 10px;
+// The "Add Location" button at the top of the sidebar
+const AddButton = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 18px;
   &:hover {
     color: royalblue;
     cursor: pointer;
@@ -149,7 +151,9 @@ export const Sidebar = () => {
     return (
       <SidebarColumn>
         <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
-        <TextButton onClick={() => addRoom()}>+ Add Location</TextButton>
+        <AddButton onClick={() => addRoom()}>
+          <FontAwesomeIcon icon={['fas', 'map-marker-plus']} />&nbsp;New Location
+        </AddButton>
         <ListHeader>LOCATIONS</ListHeader>
         {sortedRoomList.map((room) => (
           <RoomButton
