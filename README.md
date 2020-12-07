@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup
+
+This app uses Font Awesome Pro icons, and may not work without the necessary token. This can be set
+in `.npmrc` following [these instructions](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers).
+
 ## How to Run
 
 ### 1. Run Flask server
