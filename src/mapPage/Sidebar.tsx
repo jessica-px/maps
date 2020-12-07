@@ -22,7 +22,7 @@ interface SidebarItemProps {
 const SidebarItem = styled.div<SidebarItemProps>`
   padding: 0 0 15px 10px;
   &:hover {
-    font-weight: bold;
+    color: royalblue;
     cursor: pointer;
   }
   ${(props) => props.active && css`
@@ -32,11 +32,10 @@ const SidebarItem = styled.div<SidebarItemProps>`
 
 // The "+ Add Location" button at the top of the sidebar
 const TextButton = styled.div`
-  padding-left: 10px;
+  padding: 0 0 15px 10px;
   &:hover {
     color: royalblue;
     cursor: pointer;
-    text-decoration: underline;
   }
 `;
 
@@ -64,6 +63,13 @@ export const Sidebar = () => {
     });
   };
 
+  const deleteRoom = () => {
+    dispatch({
+      type: 'DELETE_ROOM',
+      payload: {id: mapState?.activeRoomId}
+    });
+  };
+
   if (mapState) {
     const sortedRoomList = sortRoomListByListPosition(mapState.roomList);
 
@@ -71,6 +77,7 @@ export const Sidebar = () => {
       <SidebarColumn>
         <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
         <TextButton onClick={() => addRoom()}>+ Add Location</TextButton>
+        <TextButton onClick={() => deleteRoom()}>- Delete Location</TextButton>
         <ListHeader>LOCATIONS</ListHeader>
         {sortedRoomList.map((room) => (
           <SidebarItem
