@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { MapContext, sortRoomListByListPosition } from './MapContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MapContext, sortRoomListByListPosition, Room } from './MapContext';
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
@@ -20,7 +21,9 @@ interface SidebarItemProps {
 
 // Items listed in the sidebar (room titles)
 const SidebarItem = styled.div<SidebarItemProps>`
-  padding: 0 0 15px 10px;
+  text-align: left;
+  flex: 1;
+  padding: 10px 0;
   &:hover {
     color: royalblue;
     cursor: pointer;
@@ -42,6 +45,84 @@ const TextButton = styled.div`
 const ListHeader = styled.h5`
   opacity: .5;
 `;
+
+// A completely unstyled html button, for extending
+const UnStyledButton = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+  cursor: pointer;
+`;
+
+// The full-width "buttons" in the sidebar
+const SidebarButtonStyle = styled(UnStyledButton)`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:hover {
+    background-color: aliceblue;
+  }
+`;
+
+// The trash can button that gets rendered on hovering over
+// a sidebar item
+const SidebarItemTrashButton = styled(UnStyledButton)`
+  font-size: 18px;
+  padding: 9px;
+  &:hover {
+    font-weight: bold;
+    color: royalblue;
+  }
+`;
+
+// --------------------------------------------------------------- //
+//                         Sub Components                          //
+// --------------------------------------------------------------- //
+
+interface RoomButtonProps {
+  room: Room,
+  active: boolean,
+  setActiveRoomId: (id: string) => void
+}
+
+const RoomButton = ({ room, active, setActiveRoomId }: RoomButtonProps) => {
+  const [, dispatch] = useContext(MapContext);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const deleteRoom = () => {
+    dispatch({
+      type: 'DELETE_ROOM',
+      payload: { id: room.id }
+    });
+  };
+
+  return (
+    <SidebarButtonStyle
+      type="button"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      <SidebarItem
+        key={room.id}
+        active={active}
+        onClick={() => setActiveRoomId(room.id)}
+      >
+        {room.listPosition}. {room.name}
+      </SidebarItem>
+      {isHovering
+        && (
+          <SidebarItemTrashButton onClick={() => deleteRoom()}>
+            <FontAwesomeIcon icon={['fal', 'trash']} />
+          </SidebarItemTrashButton>
+        )}
+    </SidebarButtonStyle>
+  );
+};
+
 // --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
@@ -63,13 +144,6 @@ export const Sidebar = () => {
     });
   };
 
-  const deleteRoom = () => {
-    dispatch({
-      type: 'DELETE_ROOM',
-      payload: { id: mapState?.activeRoomId }
-    });
-  };
-
   if (mapState) {
     const sortedRoomList = sortRoomListByListPosition(mapState.roomList);
 
@@ -77,16 +151,14 @@ export const Sidebar = () => {
       <SidebarColumn>
         <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
         <TextButton onClick={() => addRoom()}>+ Add Location</TextButton>
-        <TextButton onClick={() => deleteRoom()}>- Delete Location</TextButton>
         <ListHeader>LOCATIONS</ListHeader>
         {sortedRoomList.map((room) => (
-          <SidebarItem
+          <RoomButton
             key={room.id}
-            active={mapState.activeRoomId === room.id}
-            onClick={() => setActiveRoomId(room.id)}
-          >
-            {room.listPosition}. {room.name}
-          </SidebarItem>
+            room={room}
+            active={room.id === mapState.activeRoomId}
+            setActiveRoomId={setActiveRoomId}
+          />
         ))}
       </SidebarColumn>
     );
