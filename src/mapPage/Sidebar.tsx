@@ -85,8 +85,7 @@ const SidebarItemTrashButton = styled(UnStyledButton)`
 
 interface RoomButtonProps {
   room: Room,
-  active: boolean,
-  setActiveRoomId: (id: string) => void
+  active: boolean
 }
 
 const RoomButton = ({ room, active }: RoomButtonProps) => {
