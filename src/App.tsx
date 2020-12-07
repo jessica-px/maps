@@ -3,7 +3,14 @@ import styled, { createGlobalStyle } from 'styled-components';
 import {
   BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
-import { faEdit, faSave, faTrash } from '@fortawesome/pro-light-svg-icons';
+import {
+  faEdit,
+  faSave,
+  faTrash
+} from '@fortawesome/pro-light-svg-icons';
+import {
+  faMapMarkerPlus
+} from '@fortawesome/pro-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { UserContextProvider } from './UserContext';
 
@@ -18,7 +25,7 @@ import 'leaflet/dist/leaflet.css';
 // Sets up the library for font awesome icons.
 // https://github.com/FortAwesome/react-fontawesome
 
-library.add(faEdit, faSave, faTrash);
+library.add(faEdit, faSave, faTrash, faMapMarkerPlus);
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
