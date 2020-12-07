@@ -89,9 +89,16 @@ interface RoomButtonProps {
   setActiveRoomId: (id: string) => void
 }
 
-const RoomButton = ({ room, active, setActiveRoomId }: RoomButtonProps) => {
+const RoomButton = ({ room, active }: RoomButtonProps) => {
   const [, dispatch] = useContext(MapContext);
   const [isHovering, setIsHovering] = useState(false);
+
+  const setActiveRoomId = (newId: string): void => {
+    dispatch({
+      type: 'SET_ACTIVE_ROOM_ID',
+      payload: newId
+    });
+  };
 
   const deleteRoom = () => {
     dispatch({
@@ -130,13 +137,6 @@ const RoomButton = ({ room, active, setActiveRoomId }: RoomButtonProps) => {
 export const Sidebar = () => {
   const [mapState, dispatch] = useContext(MapContext);
 
-  const setActiveRoomId = (newId: string): void => {
-    dispatch({
-      type: 'SET_ACTIVE_ROOM_ID',
-      payload: newId
-    });
-  };
-
   const addRoom = () => {
     dispatch({
       type: 'ADD_ROOM',
@@ -157,7 +157,6 @@ export const Sidebar = () => {
             key={room.id}
             room={room}
             active={room.id === mapState.activeRoomId}
-            setActiveRoomId={setActiveRoomId}
           />
         ))}
       </SidebarColumn>
