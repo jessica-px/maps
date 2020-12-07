@@ -1,4 +1,5 @@
 import React, { useState, useContext, ChangeEvent } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { Room, MapContext } from './MapContext';
@@ -53,8 +54,10 @@ const MenuButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
+  font-size: 20px;
   & > div {
-    padding-left: 10px;
+    padding-left: 18px;
   }
 `;
 
@@ -163,12 +166,12 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarP
           <MenuButton
             onClick={() => deleteRoom(activeRoomId)}
           >
-            Delete
+            <FontAwesomeIcon icon={['fal', 'trash']} />
           </MenuButton>
           <MenuButton
             onClick={() => setEditModeEnabled(!editModeEnabled)}
           >
-            {editModeEnabled ? 'Save' : 'Edit'}
+            {editModeEnabled ? <FontAwesomeIcon icon={['fal', 'save']} /> : <FontAwesomeIcon icon={['fal', 'edit']} />}
           </MenuButton>
         </MenuButtons>
       </StyledMenu>
