@@ -23,7 +23,7 @@ const RoomTitleRenameButton = styled.span`
 const RoomTitleContainer = styled.div`
   display: flex;
   align-items: flex-end;
-  padding: 20px 0;
+  padding: 20px 20px;
 `;
 
 // Styling for the room's title header

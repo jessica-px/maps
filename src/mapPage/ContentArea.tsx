@@ -12,7 +12,6 @@ import { RoomTitle } from './RoomTitle';
 const ContentColumn = styled.div`
   min-width: 400px;
   flex: 2;
-  padding: 20px 20px 0 20px;
   overflow: auto;
   box-sizing: border-box;
 `;
@@ -20,11 +19,12 @@ const ContentColumn = styled.div`
 // height is temporarily hardcoded until dynamic height for textareas
 // can be figured out :(
 const StyledTextArea = styled.textarea`
-  width: 96%;
+  width: 90%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   padding: 5px;
+  margin: 0 20px;
   resize: none;
   height: 557px;
 `;
@@ -45,6 +45,8 @@ const StyledMenu = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 0;
+  padding: 20px;
+  border-bottom: 1px solid lightgrey;
 `;
 
 const MenuButtons = styled.div`
@@ -61,6 +63,12 @@ const SizeContainer = styled.div`
   overflow: auto;
   min-height: 600px;
   box-sizing: border-box;
+  padding: 0 20px;
+`;
+
+const MapTitle = styled.div`
+  font-weight: 300;
+  font-size: 24px;
 `;
 
 // --------------------------------------------------------------- //
@@ -150,7 +158,7 @@ const MenuBar = ({ editModeEnabled, setEditModeEnabled, activeRoomId }: MenuBarP
   if (mapState) {
     return (
       <StyledMenu>
-        <div>{`All Maps > ${mapState.directoryName} > ${mapState.name}`}</div>
+        <MapTitle>{mapState.name}</MapTitle>
         <MenuButtons>
           <MenuButton
             onClick={() => deleteRoom(activeRoomId)}
