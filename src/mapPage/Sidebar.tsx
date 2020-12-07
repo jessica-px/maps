@@ -66,7 +66,7 @@ export const Sidebar = () => {
   const deleteRoom = () => {
     dispatch({
       type: 'DELETE_ROOM',
-      payload: {id: mapState?.activeRoomId}
+      payload: { id: mapState?.activeRoomId }
     });
   };
 
