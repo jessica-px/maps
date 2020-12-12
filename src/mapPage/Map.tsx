@@ -34,10 +34,10 @@ function SetMapBoundsHook() {
 // let us changes appearances for active/inactive icons
 const StyleContainer = styled.div`
   .leaflet-marker-icon {
-    filter: saturate(120%);
+    filter: hue-rotate(-90deg) saturate(120%);
   }
   .leaflet-marker-icon-inactive {
-    filter: saturate(50%);
+    filter: saturate(75%);
   }
 `;
 
