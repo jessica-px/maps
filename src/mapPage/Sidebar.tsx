@@ -46,6 +46,7 @@ const AddButton = styled.div`
   }
 `;
 
+// The small, all-caps headers in each section
 const ListHeader = styled.h5`
   opacity: .5;
 `;
@@ -93,6 +94,7 @@ const SidebarTopSection = styled.div`
   }
 `;
 
+// Used for the bottom half of the sidebar, adds padding
 const SidebarBottomSection = styled.div`
   padding: 20px 0;
   width: 100%;
