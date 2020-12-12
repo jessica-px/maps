@@ -85,15 +85,21 @@ const SidebarItemTrashButton = styled(UnStyledButton)`
 
 // Used for the top half of the sidebar, adds padding
 const SidebarTopSection = styled.div`
-  padding: 10px 20px 20px 10px;
+  padding: 20px 0;
   width: 100%;
   overflow: auto;
+  & > * {
+    padding: 0 20px;
+  }
 `;
 
 const SidebarBottomSection = styled.div`
-  padding: 20px;
+  padding: 20px 0;
   width: 100%;
   overflow: auto;
+  & > * {
+    padding: 0 20px;
+  }
 `;
 
 // --------------------------------------------------------------- //
