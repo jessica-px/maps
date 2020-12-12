@@ -13,7 +13,6 @@ import { MapContext, sortRoomListByListPosition, Room } from './MapContext';
 // Container for the sidebar
 const SidebarColumn = styled.div`
   width: 250px;
-  padding: 20px;
   overflow: auto;
   background: rgba(230,239,241,1);
 `;
@@ -86,13 +85,13 @@ const SidebarItemTrashButton = styled(UnStyledButton)`
 
 // Used for the top half of the sidebar, adds padding
 const SidebarTopSection = styled.div`
-  padding: 10px 5px;
+  padding: 10px 20px 20px 10px;
   width: 100%;
   overflow: auto;
 `;
 
 const SidebarBottomSection = styled.div`
-  padding: 20px 5px;
+  padding: 20px;
   width: 100%;
   overflow: auto;
 `;
