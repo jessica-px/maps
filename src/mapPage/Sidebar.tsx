@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// @ts-ignore
+import PanelGroup from 'react-panelgroup';
+
 import { MapContext, sortRoomListByListPosition, Room } from './MapContext';
 
 // --------------------------------------------------------------- //
@@ -81,6 +84,19 @@ const SidebarItemTrashButton = styled(UnStyledButton)`
   }
 `;
 
+// Used for the top half of the sidebar, adds padding
+const SidebarTopSection = styled.div`
+  padding: 10px 5px;
+  width: 100%;
+  overflow: auto;
+`;
+
+const SidebarBottomSection = styled.div`
+  padding: 20px 5px;
+  width: 100%;
+  overflow: auto;
+`;
+
 // --------------------------------------------------------------- //
 //                         Sub Components                          //
 // --------------------------------------------------------------- //
@@ -150,18 +166,24 @@ export const Sidebar = () => {
 
     return (
       <SidebarColumn>
-        <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
-        <AddButton onClick={() => addRoom()}>
-          <FontAwesomeIcon icon={['fas', 'map-marker-plus']} />&nbsp;New Location
-        </AddButton>
-        <ListHeader>LOCATIONS</ListHeader>
-        {sortedRoomList.map((room) => (
-          <RoomButton
-            key={room.id}
-            room={room}
-            active={room.id === mapState.activeRoomId}
-          />
-        ))}
+        <PanelGroup direction="column" borderColor="#CCC">
+          <SidebarTopSection>
+            <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
+          </SidebarTopSection>
+          <SidebarBottomSection>
+            <AddButton onClick={() => addRoom()}>
+              <FontAwesomeIcon icon={['fas', 'map-marker-plus']} />&nbsp;New Location
+            </AddButton>
+            <ListHeader>LOCATIONS</ListHeader>
+            {sortedRoomList.map((room) => (
+              <RoomButton
+                key={room.id}
+                room={room}
+                active={room.id === mapState.activeRoomId}
+              />
+            ))}
+          </SidebarBottomSection>
+        </PanelGroup>
       </SidebarColumn>
     );
   }
