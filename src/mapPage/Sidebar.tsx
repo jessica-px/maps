@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // @ts-ignore
 import PanelGroup from 'react-panelgroup';
 
 import { MapContext, sortRoomListByListPosition, Room } from './MapContext';
+import { Directory, UserState } from '../UserContext';
 
 // --------------------------------------------------------------- //
 //                       Styled Components                         //
@@ -154,6 +156,76 @@ const RoomButton = ({ room, active }: RoomButtonProps) => {
   );
 };
 
+interface DirectoryContainerProps {
+  dir: Directory
+}
+
+const DirectoryContainer = ({ dir }: DirectoryContainerProps) => {
+  const history = useHistory();
+
+  const goToMap = (id: string) => {
+    history.push(`maps?id=${id}`);
+  };
+
+  return (
+    <>
+      <div>{dir.name}</div>
+      <>
+        {dir.maps.map((map) => (
+          <SidebarButtonStyle key={map.id}>
+            <SidebarItem onClick={() => goToMap(map.id)} active={false}>{map.name}</SidebarItem>
+          </SidebarButtonStyle>
+        ))}
+      </>
+    </>
+  );
+};
+
+const DirectoriesList = () => {
+  const [userState, setUserState] = useState<UserState | null>(null);
+  const [directories, setDirectories] = useState<Directory[] | null>(null);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const getUser = () => {
+    fetch('/api/user', getOptions)
+      .then((response: any) => response.json()) // eslint-disable-line @typescript-eslint/no-explicit-any
+      .then((json: UserState) => {
+        setUserState(json);
+        getDirectories(json.id);
+      });
+  };
+
+  const getDirectories = (id: string) => {
+    fetch(`/api/directories?userId=${id}`, getOptions)
+      .then((response: any) => response.json()) // eslint-disable-line @typescript-eslint/no-explicit-any
+      .then((json: Directory[]) => {
+        setDirectories(json);
+      });
+  };
+
+  if (userState && directories) {
+    return (
+      <>
+        {
+          directories.map((dir) => <DirectoryContainer dir={dir} key={dir.id} />)
+        }
+      </>
+    );
+  }
+
+  return <p>Loading...</p>;
+};
+
 // --------------------------------------------------------------- //
 //                         Main Component                          //
 // --------------------------------------------------------------- //
@@ -176,6 +248,7 @@ export const Sidebar = () => {
         <PanelGroup direction="column" borderColor="#CCC">
           <SidebarTopSection>
             <ListHeader>{mapState.name.toUpperCase()}</ListHeader>
+            <DirectoriesList />
           </SidebarTopSection>
           <SidebarBottomSection>
             <AddButton onClick={() => addRoom()}>
