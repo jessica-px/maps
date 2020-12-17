@@ -36,6 +36,6 @@ jobs:
           git checkout -B gh-pages
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
-          echo "Usernamed:"
-          echo git config user.name
+          echo "Username:"
+          git config user.name
           git push --set-upstream origin gh-pages
