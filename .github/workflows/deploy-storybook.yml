@@ -17,17 +17,19 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Checkout gh-pages branch
+      - name: Setup .npmrc
+        run: |
+          npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Checkout GitHub Pages branch
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -B gh-pages
-
-      - name: Install dependencies
-        run: |
-          echo '@fortawesome:registry=https://npm.fontawesome.com/' > .npmrc
-          npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
-          npm install
 
       - name: Build Storybook
         run: npm run build-storybook
