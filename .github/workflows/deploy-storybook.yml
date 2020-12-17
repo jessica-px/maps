@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
 
       - uses: actions/setup-node@v2-beta
         with:
@@ -36,6 +34,4 @@ jobs:
           git checkout -B gh-pages
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
-          echo "Username:"
-          git config user.name
-          git push --set-upstream origin gh-pages
+          git push --set-upstream "https://${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@github.com/jessypeck/maps.git" gh-pages
