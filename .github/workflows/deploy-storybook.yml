@@ -19,6 +19,7 @@ jobs:
 
       - name: Setup .npmrc
         run: |
+          echo "@fortawesome:registry=https://npm.fontawesome.com/" > .npmrc
           npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
 
       - name: Install dependencies
