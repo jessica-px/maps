@@ -26,17 +26,14 @@ jobs:
         run: |
           npm install
 
-      - name: Checkout GitHub Pages branch
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -B gh-pages
-
       - name: Build Storybook
         run: npm run build-storybook
 
       - name: Push Storybook to GitHub Pages
         run: |
+          git checkout -B gh-pages
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
           git push --set-upstream origin gh-pages
