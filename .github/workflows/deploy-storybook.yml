@@ -36,5 +36,5 @@ jobs:
       - name: Push Storybook to GitHub Pages branch
         run: |
           git add storybook-static
-          git commit -m "Build Storybook (auto-generated commit)"
+          git commit -m "Build Storybook (auto-generated commit)" || echo "No changes to commit"
           git push origin gh-pages
