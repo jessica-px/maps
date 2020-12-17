@@ -20,14 +20,7 @@ jobs:
           echo "@fortawesome:registry=https://npm.fontawesome.com/" > .npmrc
           npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
 
-      - name: Install dependencies
-        run: |
-          npm install
-
-      - name: Build Storybook
-        run: npm run build-storybook
-
-      - name: Push Storybook to GitHub Pages
+      - name: Checkout GitHub Pages branch
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
@@ -35,6 +28,16 @@ jobs:
           git checkout -B gh-pages
           git branch --set-upstream-to=origin/gh-pages gh-pages
           git pull
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Push Storybook to GitHub Pages branch
+        run: |
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
           git push
