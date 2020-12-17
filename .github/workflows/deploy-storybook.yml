@@ -34,4 +34,4 @@ jobs:
           git checkout -B gh-pages
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
-          git push --set-upstream "https://${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@github.com/jessypeck/maps.git" gh-pages
+          git push --set-upstream origin gh-pages
