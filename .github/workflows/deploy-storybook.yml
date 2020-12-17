@@ -31,9 +31,11 @@ jobs:
 
       - name: Push Storybook to GitHub Pages
         run: |
-          git checkout -B gh-pages
-          git config user.name "github-actions"
+          git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
+          git checkout -B gh-pages
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
+          echo "Usernamed:"
+          echo git config user.name
           git push --set-upstream origin gh-pages
