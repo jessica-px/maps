@@ -24,7 +24,9 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          git checkout -B gh-pages
+          git fetch
+          git checkout gh-pages
+          git pull origin master --allow-unrelated-histories
 
       - name: Install dependencies
         run: npm install
@@ -36,4 +38,4 @@ jobs:
         run: |
           git add storybook-static
           git commit -m "Build Storybook (auto-generated commit)"
-          git push --set-upstream origin gh-pages --force
+          git push gh-pages
