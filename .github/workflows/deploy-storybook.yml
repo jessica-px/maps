@@ -25,9 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-        echo '@fortawesome:registry=https://npm.fontawesome.com/' > .npmrc
-        npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
-        npm install
+          echo '@fortawesome:registry=https://npm.fontawesome.com/' > .npmrc
+          npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}"
+          npm install
 
       - name: Build Storybook
         run: npm run build-storybook
