@@ -13,7 +13,7 @@ in `.npmrc` following [these instructions](https://fontawesome.com/how-to-use/on
 
 #### Setup server
 
-You may need to install [Poetry](https://python-poetry.org/) if you do not already have it. If you have issues with Poetry using the wrong python version, [this](https://github.com/python-poetry/poetry/issues/655#issuecomment-735634429) solution seems to work.\
+You may need to install [Poetry](https://python-poetry.org/) if you do not already have it. If you have issues with Poetry using the wrong python version, [this](https://github.com/python-poetry/poetry/issues/655#issuecomment-735634429) solution seems to work.
 
 Flask will require a `.flaskenv` file to operate correctly. This file is not checked into git, so you will need to create it locally, with the following contents:
 
@@ -24,9 +24,9 @@ FLASK_ENV=development
 #### Run server
 
 `poetry run python -m flask run`
-Runs the server.\
+Runs the server.
 
-The server will run on `localhost:5000`, but you should not need to open it directly.
+The server will run on `localhost:5000`, but you should not need to open it in your browser.
 
 ### 2. Run frontend
 
