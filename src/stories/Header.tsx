@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </g>
         </svg>
-        <h1>Acme</h1>
+        <h1>Acme Industries</h1>
       </div>
     </div>
   </header>
